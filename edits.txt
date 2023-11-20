@@ -16,4 +16,8 @@ https://htdp.org/2023-8-14/Book/part_prologue.html
 'select Add Teachpack from the Language menu and choose image from the Preinstalled HtDP/2e Teachpack menu.'
 ->
 'select Add Teachpack from the Language menu and choose 2htdp/image.rkt from the Preinstalled HtDP/2e Teachpack menu.'
+
+'select Add Teachpack from the Language menu and choose universe from the Preinstalled HtDP/2e Teachpack menu.'
+->
+'select Add Teachpack from the Language menu and choose universe.rkt from the Preinstalled HtDP/2e Teachpack menu.'
 =======
