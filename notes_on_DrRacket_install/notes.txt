@@ -1,0 +1,21 @@
+= Source =
+https://download.racket-lang.org/
+
+= Local location = 
+/Applications/Racket\ v8.11/
+
+= Run DrRacket from commandline = 
+
+alternative 1:
+$ /Applications/Racket\ v8.11/bin/drracket &
+
+alternative 2:
+$ /Applications/Racket\ v8.11/DrRacket.app/Contents/MacOS/DrRacket &
+
+= Run Racket from commandline =
+
+$ /Applications/Racket\ v8.11/bin/racket
+
+= Run Scheme from commandline =
+
+$ /Applications/Racket\ v8.11/bin/plt-r5rs
