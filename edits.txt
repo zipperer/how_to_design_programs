@@ -1,0 +1,15 @@
+=======
+https://htdp.org/2023-8-14/notes/note_teaching.html
+
+'Once a student of a language can form sentences, he/she also need a way to understanding the meaning of sentences.'
+->
+'Once a student of a language can form sentences, he/she also needs a way to understand the meaning of sentences.'
+
+'You may now suggest that the two words are define in the definitions area:'
+->
+'You may now suggest that the students define the two words in the definitions area:'
+=======
+
+=======
+
+=======
