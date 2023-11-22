@@ -5,9 +5,12 @@
 (define str "helloworld")
 (define i 5)
 
+(define (index-specifies-position-within-string index string)
+  (and (>= index 0)
+       (< index (string-length string))))
+
 (define (remove-character-at-index string index)
-  (if (and (>= index 0)
-           (< index (string-length string)))
+  (if (index-specifies-position-within-string index string)
       (string-append (substring str 0 index) (substring str (+ index 1)))
       string))
 
