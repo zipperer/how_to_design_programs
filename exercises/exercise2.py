@@ -13,3 +13,4 @@ class TestConcatenate(unittest.TestCase):
         self.assertEqual('{}_{}'.format(prefix, suffix), "hello_world")
         self.assertEqual('_'.join([prefix, suffix]), "hello_world")
         self.assertEqual(str.join('_', [prefix, suffix]), "hello_world")
+        self.assertEqual('%(prefix)s_%(suffix)s' % {'prefix' : prefix, 'suffix' : suffix}, 'hello_world')
