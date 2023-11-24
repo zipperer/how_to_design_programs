@@ -1,5 +1,7 @@
 import unittest
 
+#https://docs.python.org/3/library/functions.html#isinstance
+
 def is_string(value_with_type_unknown_to_program_designer):
     return isinstance(value_with_type_unknown_to_program_designer, str)
 

@@ -1,9 +1,9 @@
-import builtins
+import builtins # try to refer to str as builtins.str. See comment within convert_to_non_negative_integer_use_builtins
 import unittest
 
 def convert_to_non_negative_integer_use_builtins(value_with_type_unknown_to_program_designer):
     match type(value_with_type_unknown_to_program_designer):
-      case builtins.str: # use builtins.str b/c using str alone causes str to be interpreted as a variable name, and anything will match to variable name
+      case builtins.str: # use builtins.str b/c using str alone causes str to be interpreted as a variable name, and anything will match to variable name.
         return len(value_with_type_unknown_to_program_designer)
       # case Image -- have not looked for class that corresponds to (image? )
       case builtins.int | builtins.float: # either int or float. I intend this case corresponds roughly to case for (number? _)
@@ -14,7 +14,7 @@ def convert_to_non_negative_integer_use_builtins(value_with_type_unknown_to_prog
         else:
             return 20
       case _:
-        return "convert_to_non_negative_integer failed to recognize type"
+        return "convert_to_non_negative_integer_use_builtins failed to recognize type"
 
 
 class TestConvertToNonNegativeNumberUseBuiltins(unittest.TestCase):

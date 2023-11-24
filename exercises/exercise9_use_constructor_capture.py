@@ -1,5 +1,6 @@
 import unittest
 
+# https://peps.python.org/pep-0636/#matching-builtin-classes
 def convert_to_non_negative_integer_use_constructor_capture(value_with_type_unknown_to_program_designer):
     match value_with_type_unknown_to_program_designer:
       case str(string_value):
