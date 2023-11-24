@@ -16,10 +16,6 @@
           "square"
           "wide")))
 
-(image-is-tall-or-wide cat)
-"should be"
-"tall"
-
 (image-is-tall-wide-or-square (square 2 "solid" "black"))
 "should be"
 "square"
