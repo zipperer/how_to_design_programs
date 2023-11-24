@@ -16,6 +16,10 @@
           "square"
           "wide")))
 
+(image-is-tall-wide-or-square (rectangle 1 2 "solid" "black"))
+"should be"
+"tall"
+
 (image-is-tall-wide-or-square (square 2 "solid" "black"))
 "should be"
 "square"
