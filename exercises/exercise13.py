@@ -2,7 +2,8 @@ import unittest
 
 def string_first(non_empty_string):
     '''compute first character in non-empty-string'''
-    return non_empty_string[0]
+    index_of_first_character = 0
+    return non_empty_string[index_of_first_character]
 
 class TestStringFirst(unittest.TestCase):
 
