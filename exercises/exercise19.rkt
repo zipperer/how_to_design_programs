@@ -1,7 +1,10 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname exercise19) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+
 ; (require "exercise18.rkt") ; for string-join -- this works in #lang racket but not Beginning Student Language
+; ^ https://stackoverflow.com/questions/48548687/require-vs-load-vs-include-vs-import-in-racket
+
 
 ; Define the function string-insert, which consumes a string str plus a number i
 ; and inserts "_" at the ith position of str.
