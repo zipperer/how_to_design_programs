@@ -34,3 +34,7 @@
 (string-delete "hey" -1)
 "should be"
 "hey"
+
+(string-delete "" 0)
+"should be"
+""

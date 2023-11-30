@@ -29,3 +29,4 @@ class TestStringDelete(unittest.TestCase):
         self.assertEqual(string_delete('hey', 2), 'he')
         self.assertEqual(string_delete('hey', 3), 'hey')
         self.assertEqual(string_delete('hey', -1), 'hey')
+        self.assertEqual(string_delete('', 0), '')
