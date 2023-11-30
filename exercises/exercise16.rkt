@@ -15,3 +15,7 @@
 (image-area (square 5 "solid" "blue"))
 "should be"
 25
+
+(image-area (rectangle 5 10 "solid" "gray"))
+"should be"
+50
