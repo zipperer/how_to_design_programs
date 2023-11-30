@@ -10,5 +10,3 @@ class TestImageArea(unittest.TestCase):
             self.assertEqual(python_image_methods.image_area(circle), 121) # this is 11 * 11 rather than 10 * 10
         with Image.open('images/racket_square_length_5_solid_blue.png') as square:
             self.assertEqual(python_image_methods.image_area(square), 36) # this is 6 * 6, rather than 5 * 5
-        with Image.open('images/racket_square_length_5_solid_blue.png') as square:
-            self.assertEqual(python_image_methods.image_area(square), 36) # this is 6 * 6, rather than 5 * 5
