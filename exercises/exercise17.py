@@ -2,7 +2,7 @@ import unittest
 from PIL import Image
 import python_image_methods
 
-class TestImageClassify(unittest.TestCase):
+class TestImageClassifyAsTallOrWideOrSquare(unittest.TestCase):
 
     def test_image_classify_as_tall_or_wide_or_square(self):
         with Image.open('images/racket_circle_radius_5_solid_red.png') as circle:
