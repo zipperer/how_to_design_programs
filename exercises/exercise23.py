@@ -1,8 +1,11 @@
+evaluate_top_level_forms = False
+
 def string_first(input_string):
     #breakpoint()
     return input_string[0:1]
 
-string_first("hello world")
+if evaluate_top_level_forms:
+    string_first("hello world")
 
 # just for fun
 # alternative that looks more like Beginning Student Language example
@@ -24,7 +27,8 @@ def string_first_using_substring(input_string):
     breakpoint()
     return substring(input_string, 0, 1)
 
-string_first_using_substring("hello world")
+if evaluate_top_level_forms:
+    string_first_using_substring("hello world")
 
 # > /Users/andrew/documents/learn-python/how_to_design_programs/exercises/exercise23.py(25)string_first_using_substring()
 # -> return substring(input_string, 0, 1)
