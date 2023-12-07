@@ -21,3 +21,21 @@ print(max_profit_among_options_for_price_per_ticket(price_per_ticket_prices_to_c
 
 # Woflram Alpha gives x = 73/25 for
 # "max (x * (120 + (15 * (10 * (5 - x))))) - (180 + (.04 * (120 + (15 * (10 * (5 - x)))))) from x = 0 to x = 6"
+
+
+# ran this file with
+# $ docker run --rm -v "${PWD}":/exercises/ python3-with-pytest python3 /exercises/exercise28.py
+
+# Dockerfile below
+
+# copied from https://hub.docker.com/_/python                                            
+#from python:3
+
+#WORKDIR /usr/src/app
+
+#COPY requirements.txt ./
+#RUN pip install --no-cache-dir -r requirements.txt
+
+#COPY . .
+
+##CMD [ "python", "./your-daemon-or-script.py" ]  
