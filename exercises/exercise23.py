@@ -1,10 +1,10 @@
-evaluate_top_level_forms = False
+evaluate_top_level_function_calls = False
 
 def string_first(input_string):
     #breakpoint()
     return input_string[0:1]
 
-if evaluate_top_level_forms:
+if evaluate_top_level_function_calls:
     string_first("hello world")
 
 # just for fun
@@ -27,7 +27,7 @@ def string_first_using_substring(input_string):
     breakpoint()
     return substring(input_string, 0, 1)
 
-if evaluate_top_level_forms:
+if evaluate_top_level_function_calls:
     string_first_using_substring("hello world")
 
 # > /Users/andrew/documents/learn-python/how_to_design_programs/exercises/exercise23.py(25)string_first_using_substring()
