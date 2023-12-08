@@ -4,11 +4,11 @@ def profit_for_movie_theater_at_price_per_ticket_no_factoring(price_per_ticket):
               ((15 / 0.1) * 
                (5.0 - price_per_ticket))) *
              price_per_ticket) -
-            (180 +
-             (0.04 *
+            (0 + # changed from 180 to 0 for exercise 29
+             (1.50 * # changed from 0.04 to 1.50 for exercise 29
               (120 +
                ((15 / 0.1) *
-                (5.0 - price))))))
+                (5.0 - price_per_ticket))))))
 
 if __name__ == '__main__':
 

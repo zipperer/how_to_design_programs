@@ -43,13 +43,13 @@ def calculate_number_of_attendees_change_given_price_per_ticket(price_per_ticket
     return number_of_attendees_change_given_price_per_ticket
 
 def cost_for_movie_theater_at_price_per_ticket(price_per_ticket):
-    fixed_cost_for_movie_theater = 180
+    fixed_cost_for_movie_theater = 0 # changed from 180 to 0 for exercise 29
     variable_cost_for_movie_theater_at_price_per_ticket = calculate_variable_cost_for_movie_theater_at_price_per_ticket(price_per_ticket)
     total_cost_for_movie_theater_at_price_per_ticket = fixed_cost_for_movie_theater + variable_cost_for_movie_theater_at_price_per_ticket
     return total_cost_for_movie_theater_at_price_per_ticket
 
 def calculate_variable_cost_for_movie_theater_at_price_per_ticket(price_per_ticket):
-    variable_cost_for_movie_theater_per_attendee = .04
+    variable_cost_for_movie_theater_per_attendee = 1.50 # changed from .04 to 1.50 for exercise 29
     number_of_attendees = number_of_attendees_at_price_per_ticket_cached(price_per_ticket)
     variable_cost_for_movie_theater_given_number_of_attendees = number_of_attendees * variable_cost_for_movie_theater_per_attendee
     return variable_cost_for_movie_theater_given_number_of_attendees
