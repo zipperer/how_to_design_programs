@@ -5,7 +5,7 @@ def max_profit_among_options_for_price_per_ticket(prices_to_check, function_to_u
     choice_that_gives_max_profit = None
     for price_per_ticket in prices_to_check:
         print(f'{price_per_ticket=}')
-        profit_at_price_per_ticket = profit_for_movie_theater_at_price_per_ticket(price_per_ticket)
+        profit_at_price_per_ticket = function_to_use_to_compute_profit(price_per_ticket)
         print(profit_at_price_per_ticket)
         if ((max_profit_among_choices == None) or
             (profit_at_price_per_ticket > max_profit_among_choices)):
