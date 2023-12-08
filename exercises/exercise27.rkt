@@ -17,9 +17,9 @@
 (define (revenue ticket-price)
   (* ticket-price (attendees ticket-price)))
 
-(define FIXED-COST-TO-MOVIE-THEATER-PER-SHOW 180)
+(define FIXED-COST-TO-MOVIE-THEATER-PER-SHOW 0) ; changed from 180 to 0 for exercise29
 
-(define VARIABLE-COST-TO-MOVIE-THEATER-PER-ATTENDEE 0.04)
+(define VARIABLE-COST-TO-MOVIE-THEATER-PER-ATTENDEE 1.50) ; changed from 0.04 to 1.50 for exercise29
 
 (define (cost ticket-price)
   (+ FIXED-COST-TO-MOVIE-THEATER-PER-SHOW
