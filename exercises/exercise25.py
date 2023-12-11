@@ -2,7 +2,7 @@ import python_image_methods
 from PIL import Image
 
 def image_classify_as_tall_or_wide_or_square_incorrect(image):
-    breakpoint()
+    #breakpoint()
     width = python_image_methods.image_width(image)
     height = python_image_methods.image_height(image)
     if height >= width:

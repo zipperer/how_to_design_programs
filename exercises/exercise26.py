@@ -7,7 +7,7 @@ def string_append(*args):
     return str.join('', args)
 
 def string_insert(input_string, index_at_which_to_insert):
-    breakpoint()
+    #breakpoint()
     return string_append(substring(input_string, 0, index_at_which_to_insert),
                          "_",
                          substring(input_string, index_at_which_to_insert))

@@ -4,7 +4,7 @@ def sqr(x):
     return pow(x, 2)
 
 def distance_to_origin(x, y):
-    breakpoint()
+    #breakpoint()
     return sqrt(sqr(x) + sqr(y))
 
 distance_to_origin(3, 4)
