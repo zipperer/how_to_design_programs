@@ -1,7 +1,5 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname exercise39) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-
+#lang racket
+(provide CAR)
 ; Exercise 39.
 ;  Good programmers ensure that an image such as CAR can be enlarged or reduced via a single change to a constant definition.
 ;
@@ -19,7 +17,7 @@
 (require 2htdp/image)
 
 ; All of the fractions are magic numbers
-(define WHEEL-RADIUS 30)
+(define WHEEL-RADIUS 15)
 (define WHEEL-DISTANCE (* WHEEL-RADIUS 5))
 (define WHEEL (circle WHEEL-RADIUS "solid" "black"))
 (define SPACE-BETWEEN-WHEELS (rectangle (* 2 WHEEL-RADIUS) WHEEL-RADIUS "solid" "transparent"))
