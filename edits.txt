@@ -29,3 +29,19 @@ https://htdp.org/2023-8-14/Book/part_one.html#%28part._ch~3afuncs-progs%29
 ->
 'Exercise 32. Most people no longer use only desktop computers to run applications but also employ cell phones, tablets, and their cars’ information control screen.'
 =======
+
+=======
+https://htdp.org/2023-8-14/Book/part_one.html#%28part._ch~3ahtdp%29
+
+```
+(define WIDTH-OF-WORLD 200)
+ 
+(define WHEEL-RADIUS 5)
+(define WHEEL-DISTANCE (* WHEEL-RADIUS 5))
+Note how the second constant is computed from the first.
+```
+
+Could define WHEEL-RADIUS using WIDTH-OF-WORLD.
+
+The line `Note how the second constant is computed from the first.` is a little confusing b/c there are three constants, and the third is computed from the second, rather than the second from the first.
+=======
