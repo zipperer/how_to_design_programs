@@ -1,0 +1,4 @@
+Interval [3,5] includes integers 3, 4, and 5 (and all non-integer numbers between 3 and 5).
+Interval (3,5] includes integers 4 and 5 (and all non-integer numbers between 3 and 5).
+Interval [3, 5) includes integers 3 and 4 (and all non-integer numbers between 3 and 5).
+Interval (3, 5) includes integer 4 (and all non-integer numbers between 3 and 5).
