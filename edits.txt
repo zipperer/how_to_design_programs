@@ -45,3 +45,36 @@ Could define WHEEL-RADIUS using WIDTH-OF-WORLD.
 
 The line `Note how the second constant is computed from the first.` is a little confusing b/c there are three constants, and the third is computed from the second, rather than the second from the first.
 =======
+
+=======
+https://htdp.org/2023-8-14/Book/part_one.html#%28part._sec~3adesign-itemization%29
+
+door-closer uses string=?
+
+(define (door-closer state-of-door)
+  (cond
+    [(string=? LOCKED state-of-door) LOCKED]
+    [(string=? CLOSED state-of-door) CLOSED]
+    [(string=? OPEN state-of-door) CLOSED]))
+
+The values in DoorState are symbolic -- LOCKED, CLOSED, OPEN.
+
+I claim door-closer should use equal? rather than string=?, since
+the states are symbolic and the string value is an implementation detail.
+
+Before the section with door-closer, an example uses equal? and has Aside:
+```
+The equal? function in figure 27 compares two arbitrary values, 
+regardless of what these values are. 
+Equality is a complicated topic in the world of programming.
+```
+
+That section includes a warning about relying on implementation details:
+```
+Figure 27 displays two different functions that switch the state of a traffic light in a simulation program. Which of the two is properly designed using the recipe for itemization? Which of the two continues to work if you change the constants to the following
+(define RED "red")
+(define GREEN "green")
+(define YELLOW "yellow")
+
+```
+=======

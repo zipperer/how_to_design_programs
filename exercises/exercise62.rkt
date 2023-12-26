@@ -1,0 +1,1 @@
+../DrRacket/examples/part_one/part_one_designing_with_itemizations_door_with_automatic_closer.rkt
