@@ -1,0 +1,1 @@
+../DrRacket/examples/part_one/part_one_defining_structure_types_0.rkt
