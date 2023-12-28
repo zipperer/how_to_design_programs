@@ -12,3 +12,5 @@
                                        "666-7770"
                                        "th@smlu.edu"))
 
+(check-expect (entry-name example-entry-al) "Al Abe")
+(check-error (entry-name (make-posn 42 5)) "entry-name: expects an entry, given (make-posn 42 5)")

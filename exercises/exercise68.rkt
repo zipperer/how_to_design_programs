@@ -37,3 +37,6 @@
    10 ; deltax
    -5 ; deltay
    ))
+
+(check-expect (ball-velocity ball1) (make-vel -10 5))
+(check-expect (vel-deltax (ball-velocity ball1)) -10)
