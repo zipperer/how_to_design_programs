@@ -78,3 +78,17 @@ Figure 27 displays two different functions that switch the state of a traffic li
 
 ```
 =======
+=======
+https://htdp.org/2023-8-14/Book/part_one.html
+'''
+Exercise 69. Draw box representations for the solution of exercise 65.
+'''
+->
+'''
+Exercise 69. Draw box representations for the solution of exercise 66.
+'''
+
+Exercise 65 gives only the box type and field names.
+Solving exercise 66 gives concrete instances of structure types.
+The concrete instances from solving exercise 66 give values to put in boxes in box representation.
+=======
