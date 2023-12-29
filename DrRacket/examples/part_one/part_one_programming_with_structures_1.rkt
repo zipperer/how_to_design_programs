@@ -121,11 +121,37 @@
     [(string=? "button-up" mouse-event) WORLD-STATE-INITIAL]
     [else world-state]))
 
+(check-expect (mouse-handler-set-to-mouse-position-on-click (make-posn 10 20)
+                                                            30
+                                                            40
+                                                            "button-up")
+              (make-posn 30 40))
+(check-expect (mouse-handler-set-to-mouse-position-on-click (make-posn 30 40)
+                                                            10
+                                                            20
+                                                            "button-up")
+              (make-posn 10 20))
+
+(check-expect (mouse-handler-set-to-mouse-position-on-click (make-posn 30 40)
+                                                            10
+                                                            20
+                                                            "enter")
+              (make-posn 30 40))
+
+(define (mouse-handler-set-to-mouse-position-on-click world-state
+                                                      mouse-coordinate-x
+                                                      mouse-coordinate-y
+                                                      mouse-event)
+  (cond
+    [(string=? "button-up" mouse-event) (make-posn mouse-coordinate-x
+                                                   mouse-coordinate-y)]
+    [else world-state]))
 
 (define (main placeholder)
   (big-bang WORLD-STATE-INITIAL
     [on-key move-dot]
     [to-draw draw-dot]
-    [on-mouse mouse-handler]))
+    [on-mouse mouse-handler-set-to-mouse-position-on-click] ; mouse-handler]
+    ))
 
 (main WORLD-STATE-INITIAL)
