@@ -10,7 +10,7 @@ how_to_design_programs/exercises $ docker exec -it python3-pytest-mypy-container
 / $ cd exercises
 /exercises $ python3 -m pytest FILENAME.py
 /exercises $ python3 -m mypy FILENAME.py
-/exercises $ python3 -m pytest --verbose FILENAME.py
-/exercises $ python3 -m mypy --verbose FILENAME.py
+/exercises $ python3 -m pytest --verbose FILENAME.py # -v abbreviates --verbose
+/exercises $ python3 -m mypy --verbose FILENAME.py   # -v abbreviates --verbose
 /exercises $ python3 -m pytest ./*.py
 ```
