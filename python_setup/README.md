@@ -6,7 +6,9 @@ how_to_design_programs/exercises $ docker run --name python3-pytest-mypy-contain
 ...
 # in second terminal
 how_to_design_programs/exercises $ docker exec -it python3-pytest-mypy-container /bin/bash
-/ # cd exercises
-/exercises # python3 -m pytest ./*.py
-/exercises # python3 -m mypy FILENAME.py
+# in container
+/ $ cd exercises
+/exercises $ python3 -m pytest FILENAME.py
+/exercises $ python3 -m mypy FILENAME.py
+/exercises $ python3 -m pytest ./*.py
 ```
