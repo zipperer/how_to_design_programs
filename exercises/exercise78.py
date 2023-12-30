@@ -14,11 +14,20 @@ OneStringLowercaseOrFalse = Union[OneStringLowercase, Literal[False]]
 # A OneStringLowercaseOrFalse is one of:
 # - OneStringLowercase
 # - False
+# For example:
+example_one_string_lowercase_or_false_0 : OneStringLowercaseOrFalse = False
+example_one_string_lowercase_or_false_1 : OneStringLowercaseOrFalse = OneStringLowercase('a')
+example_one_string_lowercase_or_false_2 : OneStringLowercaseOrFalse = OneStringLowercase('z')
+example_one_string_lowercase_or_false_3 : OneStringLowercaseOrFalse = OneStringLowercase('j')
 
 # A OneStringLowercase is one of:
 # - "a"
 # - ...
 # - "z"
+example_one_string_lowercase_0 = OneStringLowercase('a')
+example_one_string_lowercase_1 = OneStringLowercase('z')
+example_one_string_lowercase_2 = OneStringLowercase('j')
+
 
 # alternatively put:
 # A OneStringLowercase is a OneString with constraint:
@@ -41,3 +50,7 @@ class ThreeLetterWord:
     first_letter : OneStringLowercaseOrFalse
     second_letter : OneStringLowercaseOrFalse
     third_letter : OneStringLowercaseOrFalse
+
+example_three_letter_word_0 = ThreeLetterWord(first_letter='a', second_letter='i', third_letter='r') # represents the word 'air'
+example_three_letter_word_1 = ThreeLetterWord(first_letter='f', second_letter='i', third_letter='g') # represents the word 'fig'
+example_three_letter_word_2 = ThreeLetterWord(first_letter='f', second_letter=False, third_letter='g') # represents the word 'f_g', i.e. the second letter is a blank. See exercise 396.

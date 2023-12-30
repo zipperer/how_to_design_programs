@@ -23,3 +23,7 @@ class PointInTimeSinceMidnight:
     hours : Number
     minutes : Number
     seconds : Number
+
+example_point_in_time_since_midnight_0 = PointInTimeSinceMidnight(hours=5, minutes=0, seconds=0) # represents 5 AM.
+example_point_in_time_since_midnight_1 = PointInTimeSinceMidnight(hours=23, minutes=59, seconds=59) # represents one second before the next midnight
+example_point_in_time_since_midnight_2 = PointInTimeSinceMidnight(hours=0, minutes=0, seconds=0) # represents 0 seconds after midnight
