@@ -41,6 +41,7 @@ import pytest
 
 def test_distance_to_origin():
     # https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest-approx
+    # for unittest see https://matt-w.net/blog/test-decimal-similarity-in-python/
     relative_tolerance = .01 # default value : 1e-6
     absolute_tolerance = .005 # default value : 1e-12
     assert distance_to_origin(example_r3_origin) == pytest.approx(sqrt(sqr(0) + sqr(0) + sqr(0)), 
