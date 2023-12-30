@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import decimal
-decimal.getcontext().prec = 2 # for arithmetic with prices. see https://docs.python.org/3/library/decimal.html and search for 'python decimal tutorial'
+decimal.getcontext().prec = 2 # for arithmetic with prices. see https://docs.python.org/3/library/decimal.html and search for 'python decimal tutorial' and read result e.g. https://www.pythontutorial.net/advanced-python/python-decimal/
 from exercise79 import Color
 
 # Exercise 80
