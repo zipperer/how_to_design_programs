@@ -9,6 +9,12 @@ class OneString:
         assert type(string_of_length_1) == str
         assert len(string_of_length_1) == 1
 
+    def __eq__(self, other):
+        if isinstance(other, OneString):
+            return (self.string_of_length_1 == other.string_of_length_1)
+        else:
+            return False
+
 class OneStringLowercase(OneString):
 
     def __init__(self, string_of_length_1_lowercase : str) -> None:
@@ -19,6 +25,12 @@ class OneStringLowercase(OneString):
     @staticmethod
     def enforce_lowercase(string_of_length_1_lowercase : str) -> None:
         assert string_of_length_1_lowercase ==  string_of_length_1_lowercase.lower()
+
+    def __eq__(self, other):
+        if isinstance(other, OneStringLowercase):
+            return (self.string_of_length_1_lowercase == other.string_of_length_1_lowercase)
+        else:
+            return False
 
 
 import pytest
