@@ -79,6 +79,7 @@ def compare_letter_match_with_comments(one_string_lowercase_or_false_a : OneStri
                                        ) -> OneStringLowercaseOrFalse:
     match one_string_lowercase_or_false_a:
         # when case OneStringLowercase(string_of_length_1_lowercase): got error due to assuming positional argument: exercise82.py:81: error: Class "onestring.OneStringLowercase" doesn't define "__match_args__"  [misc]
+        # ^ have not yet experimented with __match_args__() see https://docs.python.org/3/tutorial/controlflow.html for examples
         # when case OneStringLowercase(string_of_length_1_lowercase=input_string_of_length_1_lowercase): it works, but it provides unnecessary binding string_of_length_1_lowercase=input_string_of_length_1_lowercase
         case OneStringLowercase():
             return one_string_lowercase_or_false_a if one_string_lowercase_or_false_a == one_string_lowercase_or_false_b else False
