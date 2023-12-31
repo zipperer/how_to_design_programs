@@ -31,7 +31,7 @@ example_one_string_lowercase_2 = OneStringLowercase('j')
 
 # alternatively put:
 # A OneStringLowercase is a OneString with constraint:
-# - the OneString is lowercase, i.e. if os is a OneString, then os.lower() == os
+# - the OneString is lowercase, i.e. if one_string is a OneString, then one_string.lower() == one_string
 
 @dataclass
 class ThreeLetterWord:
