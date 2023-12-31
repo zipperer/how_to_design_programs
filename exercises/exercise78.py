@@ -51,6 +51,6 @@ class ThreeLetterWord:
     second_letter : OneStringLowercaseOrFalse
     third_letter : OneStringLowercaseOrFalse
 
-example_three_letter_word_0 = ThreeLetterWord(first_letter='a', second_letter='i', third_letter='r') # represents the word 'air'
-example_three_letter_word_1 = ThreeLetterWord(first_letter='f', second_letter='i', third_letter='g') # represents the word 'fig'
-example_three_letter_word_2 = ThreeLetterWord(first_letter='f', second_letter=False, third_letter='g') # represents the word 'f_g', i.e. the second letter is a blank. See exercise 396.
+example_three_letter_word_0 = ThreeLetterWord(first_letter=OneStringLowercase('a'), second_letter=OneStringLowercase('i'), third_letter=OneStringLowercase('r')) # represents the word 'air'
+example_three_letter_word_1 = ThreeLetterWord(first_letter=OneStringLowercase('f'), second_letter=OneStringLowercase('i'), third_letter=OneStringLowercase('g')) # represents the word 'fig'
+example_three_letter_word_2 = ThreeLetterWord(first_letter=OneStringLowercase('f'), second_letter=False, third_letter=OneStringLowercase('g')) # represents the word 'f_g', i.e. the second letter is a blank. See exercise 396.
