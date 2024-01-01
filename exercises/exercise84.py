@@ -252,5 +252,12 @@ def test_text_exceeds_width_of_text_box():
     assert text_exceeds_width_of_text_box('ab') == False
     assert text_exceeds_width_of_text_box('abcdefghijklmnopqrstuvwxy') == False
     assert text_exceeds_width_of_text_box('abcdefghijklmnopqrstuvwxyz') == True
+
+# Instead of making a new function make_editor_insert_character_with_line_limit to replace
+# make_editor_insert_character, I could have added a new parameter IMPOSE_LIMIT_ON_LINE_WIDTH to
+# make_editor_insert_character. When IMPOSE_LIMIT_ON_LINE_WIDTH, then in cond clause
+# for len(key_event) == 1, pass IMPOSE_LIMIT_ON_LINE_WIDTH through to
+# make_editor_move_cursor_direction. New parameter IMPOSE_LIMIT_ON_LINE_WIDTH for 
+# make_editor_move_cursor_direction controls whether to check text_exceeds_width_of_background.
     
 # TO CONSIDER FOR FUTURE: use GUI library or graphics library to make world programs with python
