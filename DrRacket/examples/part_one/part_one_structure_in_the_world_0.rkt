@@ -137,7 +137,7 @@
    (+ (space-game-world-state-tank-x-coordinate space-game-world-state) TANK-SPEED-X-DIMENSION)))
 
 
-(define CLOCK-TICKS-EVERY-N-SECONDS (/ 1 2))
+(define CLOCK-TICKS-EVERY-N-SECONDS (/ 1 2)) ; (/ 1 10) for mode where hard to avoid UFO
 
 (define (space-game-main initial-world-state)
   (big-bang initial-world-state
