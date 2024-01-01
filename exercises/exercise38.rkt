@@ -1,6 +1,5 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname exercise38) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#lang racket
+(provide string-remove-last)
 ; Exercise 38. Design the function string-remove-last, which produces a string like the given one with the last character removed.
 
 ; data definitions
@@ -17,7 +16,7 @@
 ; - input String can have any length >= 0
 
 ; string-remove-last: String -> String
-;  return string identical to input string expect returned string lacks last 1String from input string
+;  return string identical to input string except returned string lacks last 1String from input string
 ; (define (string-remove-last input-string)
 ;   "abc")
 ; given: "hello", expect: "hell"
