@@ -174,9 +174,82 @@
 ;; END copied from exercise 83
 
 
+; AZ Begin
 (define (main initial-editor)
   (big-bang initial-editor
     [on-key edit]
     [to-draw render]))
 
-(main (make-editor "" ""))
+; (main (make-editor "" ""))
+; AZ End
+
+; Exercise 85
+; Define the function run.
+; Given the pre field of an editor, it launches an interactive editor,
+; using render and edit from the preceding two exercises for the to-draw and on-key clauses, respectively.
+
+(define (run pre-field-of-an-editor)
+  (big-bang (make-editor pre-field-of-an-editor "")
+    [to-draw render]
+    [on-key edit]))
+
+; (run "apple")
+
+; Exercise 86
+; Notice that if you type a lot, your editor program does not display all of the text.
+; Instead the text is cut off at the right margin.
+; Modify your function `edit` from exercise 84 so that it ignores a keystroke if adding
+; it to the end of the pre field would mean the rendered text is too wide for your canvas.
+
+; Editor KeyEvent -> Editor
+; produces an editor from the given editor and key-event
+; cases:
+;   - when key-event is backspace ("\b"), remove letter to left of cursor if there is one
+;   - when key-event is "left", move cursor to the left one letter if possible
+;   - when key-event is "right", move cursor to the right one letter if possible
+;   - when key-event is a letter, enter the letter to the left of the cursor
+;   - when key-event is not any of the above, ignore it
+(define (edit-with-line-limit editor key-event)
+    (cond
+    [(string=? key-event "\b") (make-editor-apply-backspace editor)]
+    [(or (string=? key-event "\t") (string=? key-event "\r")) editor]
+    [(or (string=? key-event "left") (string=? key-event "right")) (make-editor-move-cursor-direction editor key-event)]
+    [(= 1 (string-length key-event)) (make-editor-insert-character-with-line-limit editor key-event)]
+    [else editor]
+    ))
+
+; Editor KeyEvent-character -> Editor
+; insert key-event-character at cursor
+;   i.e. at the end of the string in (editor-pre editor)
+; if the text within editor-pre and editor-post would extend beyond the text box, don't add it.
+(check-expect (make-editor-insert-character-with-line-limit (make-editor "" "") " ") (make-editor " " ""))
+(check-expect (make-editor-insert-character-with-line-limit (make-editor "" "") "a") (make-editor "a" ""))
+(check-expect (make-editor-insert-character-with-line-limit (make-editor "a" "c") "b") (make-editor "ab" "c"))
+(check-expect (make-editor-insert-character-with-line-limit (make-editor "abcdefghi" "klmnopqrstuvwxy") "j") (make-editor "abcdefghij" "klmnopqrstuvwxy"))
+(check-expect (make-editor-insert-character-with-line-limit (make-editor "abcdefghi" "klmnopqrstuvwxyz") "j") (make-editor "abcdefghi" "klmnopqrstuvwxyz"))
+(check-expect (make-editor-insert-character-with-line-limit (make-editor "abcdefghijklmnopqrstuvwxy" "") "z") (make-editor "abcdefghijklmnopqrstuvwxy" ""))
+(define (make-editor-insert-character-with-line-limit editor key-event-character)
+  (cond
+    [(text-exceeds-width-of-background? (string-append (editor-pre editor)
+                                                       key-event-character
+                                                       (editor-post editor)))
+     editor]
+    [else (make-editor (string-append (editor-pre editor) key-event-character)
+                       (editor-post editor))]))
+
+(check-expect (text-exceeds-width-of-background? "a") #false)
+(check-expect (text-exceeds-width-of-background? "ab") #false)
+(check-expect (text-exceeds-width-of-background? "abcdefghijklmnopqrstuvwxy") #false)
+(check-expect (text-exceeds-width-of-background? "abcdefghijklmnopqrstuvwxyz") #true)
+
+(define (text-exceeds-width-of-background? text-to-render)
+  (> (image-width (text text-to-render TEXT-SIZE TEXT-COLOR))
+     (image-width BACKGROUND)))
+
+
+; Instead of making a new function make-editor-insert-character-with-line-limit to replace
+; make-editor-insert-character, I could have added a new parameter IMPOSE-LIMIT-ON-LINE-WIDTH? to
+; make-editor-insert-character. When IMPOSE-LIMIT-ON-LINE-WIDTH?, then in cond clause
+; for (= 1 (string-length key-event)), pass IMPOSE-LIMIT-ON-LINE-WIDTH? through to
+; make-editor-move-cursor-direction. New parameter IMPOSE-LIMIT-ON-LINE-WIDTH? for 
+; make-editor-move-cursor-direction controls whether to check text-exceeds-width-of-background?.
