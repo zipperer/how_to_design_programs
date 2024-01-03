@@ -38,10 +38,23 @@
 (define BLACK-FRAME (rectangle BLACK-FRAME-WIDTH BLACK-FRAME-HEIGHT "outline" "black"))
 (define BACKGROUND-WITH-BLACK-FRAME (underlay/xy BACKGROUND (* .01 BACKGROUND-WIDTH) (* .01 BACKGROUND-HEIGHT) BLACK-FRAME))
 
+(define HAPPINESS-RECTANGLE-WIDTH-SCALING-FACTOR .98 BLACK-FRAME-WIDTH)
+(define HAPPINESS-RECTANGLE-WIDTH (* HAPPINESS-RECTANGLE-WIDTH-SCALING-FACTOR
+                                    BLACK-FRAME-WIDTH))
+
+(define (happiness-rectangle current-world-state)
+  (rectangle HAPPINESS-RECTANGLE-WIDTH current-world-state "solid" "red"))
+
+(define (image-pixels-from-bottom-to-center image)
+  (/ (image-height image) 2))
+
+(define (y-coordinate-with-image-at-base-of-background image)
+  (- BACKGROUND-HEIGHT (image-pixels-from-bottom-to-center image)))
+
 (define (render current-world-state)
-  (place-image (rectangle (* .98 BLACK-FRAME-WIDTH) current-world-state "solid" "red")
+  (place-image (happiness-rectangle current-world-state)
                (* 1/2 BACKGROUND-WIDTH)
-               (* .98 BACKGROUND-HEIGHT)
+               (y-coordinate-with-image-at-base-of-background (happiness-rectangle current-world-state))
                BACKGROUND-WITH-BLACK-FRAME))
 
 (define (end? current-world-state)
