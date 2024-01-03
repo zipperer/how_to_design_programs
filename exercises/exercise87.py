@@ -61,6 +61,12 @@ editor_with_text_abc_and_cursor_to_right_of_third_character = Editor(editor_text
 #    the right-most character
 # - when the KeyEvent is a letter, number, ..., add that character to the Editor
 
+from enum import Enum
+class KeyEventNamedKeys(Enum):
+    BACKSPACE_KEY='\b'
+    TAB_KEY='\t'
+    RETURN_KEY='\r'
+
 def edit(editor : Editor,
          key_event : String # KeyEvent
          ) -> Editor:
@@ -68,9 +74,9 @@ def edit(editor : Editor,
     # editor.editor_number_characters_between_first_character_and_cursor # int
     # key_event # String
     match key_event:
-        case '\b':
+        case KeyEventNamedKeys.BACKSPACE_KEY:
             return make_editor_apply_backspace(editor)
-        case '\t' | '\r':
+        case KeyEventNamedKeys.TAB_KEY | KeyEventNamedKeys.RETURN_KEY:
             return editor
         case 'left' | 'right':
             return make_editor_apply_arrow_key(editor, key_event)
