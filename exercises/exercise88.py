@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing_common import Number
 from typing import Literal, Union
 import pytest
+#from sys import exit
 
 # assert update_cat_x_coordinate_due_to_time(VirtualCatGame(cat_x_coordinate=0, 
 #                                                           cat_happiness=100, 
@@ -91,7 +92,11 @@ def test_update_cat_x_coordinate_due_to_time():
 
 # on_tick helper
 def update_cat_happiness_due_to_time(vcg : VirtualCatGame) -> Number:
-    return vcg.cat_happiness - CAT_HAPPINESS_CHANGE_PER_CLOCK_TICK
+    cat_happiness_updated = vcg.cat_happiness - CAT_HAPPINESS_CHANGE_PER_CLOCK_TICK
+    if cat_happiness_updated > 0:
+        return cat_happiness_updated
+    else:
+        exit()
 
 def test_update_cat_happiness_due_to_time():
      assert update_cat_happiness_due_to_time(VirtualCatGame(cat_x_coordinate=0, 
