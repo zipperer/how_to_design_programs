@@ -36,8 +36,9 @@
 ;   NUMBER-OF-CHARACTERS-BETWEEN-FIRST-CHARACTER-AND-CURSOR-0 characters separate
 ;   the first character and the cursor.
 ; For example:
-;   (make-editor "" 0) represents an editor with no text and no characters between first
-;     character and cursor
+;   (make-editor "" -1) represents an editor with no text and the cursor 'to the left' of the first character.
+;   Note: (make-editor "" 0) DOES NOT represent an editor with no text and no characters between first
+;     character and cursor. See (make-editor "" -1).
 ;   (make-editor "a" 0) represents an editor with text "a" and no characters between first
 ;     character and cursor
 ;   (make-editor "ab" 0) represents an editor with text "ab" and 0 characters between first
@@ -94,7 +95,7 @@
 (define OVERLAY/ALIGN-Y-PLACE "center")
 
 (check-expect (render (make-editor "" -1)) (overlay/align OVERLAY/ALIGN-X-PLACE OVERLAY/ALIGN-Y-PLACE CURSOR BACKGROUND))
-(check-expect (render (make-editor "" 0)) (overlay/align OVERLAY/ALIGN-X-PLACE OVERLAY/ALIGN-Y-PLACE CURSOR BACKGROUND))
+; (check-expect (render (make-editor "" 0)) (overlay/align OVERLAY/ALIGN-X-PLACE OVERLAY/ALIGN-Y-PLACE CURSOR BACKGROUND)) ; this is not possible; for the number to be 0 requires a character is to the left of the cursor
 (check-expect (render (make-editor "a" -1)) (overlay/align OVERLAY/ALIGN-X-PLACE OVERLAY/ALIGN-Y-PLACE (beside CURSOR (text "a" TEXT-SIZE TEXT-COLOR)) BACKGROUND))
 (check-expect (render (make-editor "a" 0)) (overlay/align OVERLAY/ALIGN-X-PLACE OVERLAY/ALIGN-Y-PLACE (beside (text "a" TEXT-SIZE TEXT-COLOR) CURSOR) BACKGROUND))
 (check-expect (render (make-editor "ab" 0)) (overlay/align OVERLAY/ALIGN-X-PLACE OVERLAY/ALIGN-Y-PLACE (beside (text "a" TEXT-SIZE TEXT-COLOR) CURSOR (text "b" TEXT-SIZE TEXT-COLOR)) BACKGROUND))
@@ -264,6 +265,10 @@
 ; alternatively put, (string-append (substring (editor-text-in-field editor-world-state) 0 (add1 number-characters-between))
 ;                                   key-event-character
 ;                                   (substring (editor-text-in-field editor-world-state) (add1 number-characters-between)))
+; tests to describe length limit
+(check-expect (edit (make-editor "abcdefghijklmnopqrstuvwx" 23) "y") (make-editor "abcdefghijklmnopqrstuvwxy" 24))
+(check-expect (edit (make-editor "abcdefghijklmnopqrstuvwxy" 24) "z") (make-editor "abcdefghijklmnopqrstuvwxyz" 25))
+(check-expect (edit (make-editor "abcdefghijklmnopqrstuvwxyz" 25) "a") (make-editor "abcdefghijklmnopqrstuvwxyz" 25)) ; number-characters-between does not increase and character not in text
 (define (make-editor-world-state-apply-key-event-character editor-world-state key-event-character-to-insert)
   (cond
     [(= -1 (editor-number-of-characters-between-first-character-and-cursor editor-world-state))
@@ -276,15 +281,35 @@
                                  (string-rest (editor-text-in-field editor-world-state)))
      1)]
     [else
-     (make-editor (string-append (substring (editor-text-in-field editor-world-state) 0 (add1 (editor-number-of-characters-between-first-character-and-cursor editor-world-state)))
-                                 key-event-character-to-insert
-                                 (substring (editor-text-in-field editor-world-state) (add1 (editor-number-of-characters-between-first-character-and-cursor editor-world-state))))
-                  (add1 (editor-number-of-characters-between-first-character-and-cursor editor-world-state)))]))
+     (cond
+       [(>= (image-width (text (editor-text-in-field editor-world-state) TEXT-SIZE TEXT-COLOR))
+            (image-width BACKGROUND))
+        editor-world-state]
+       [else
+        (make-editor (string-append (substring (editor-text-in-field editor-world-state) 0 (add1 (editor-number-of-characters-between-first-character-and-cursor editor-world-state)))
+                                    key-event-character-to-insert
+                                    (substring (editor-text-in-field editor-world-state) (add1 (editor-number-of-characters-between-first-character-and-cursor editor-world-state))))
+                     (add1 (editor-number-of-characters-between-first-character-and-cursor editor-world-state)))])]))
 
-
+; Exercise 85 with new data representation
 (define (run initial-editor-world-state)
   (big-bang initial-editor-world-state
     [on-key edit]
     [to-draw render]))
 
-; (run (make-editor "" -1))
+(define EDITOR-WITH-NO-TEXT-AND-CURSOR-BEFORE-FIRST-CHARACTER (make-editor "" -1))
+
+(run EDITOR-WITH-NO-TEXT-AND-CURSOR-BEFORE-FIRST-CHARACTER)
+
+
+; Exercise 86.
+; Notice that if you type a lot, your editor program does not display all of the text.
+; Instead the text is cut off at the right margin.
+; Modify your function `edit` from exercise 84 so that it ignores a keystroke if adding
+; it to the end of the pre field would mean the rendered text is too wide for your canvas.
+
+; implementation:
+; in make-editor-world-state-apply-key-event-character, see
+; [(>= (image-width (text (editor-text-in-field editor-world-state) TEXT-SIZE TEXT-COLOR))
+;      (image-width BACKGROUND))
+;  editor-world-state]
