@@ -259,3 +259,70 @@
 ; place-image expression. But, since we may want to have different text size,
 ; text color, background for the two cases, we keep the cond expression
 ; outside the place-image expression.
+
+; Exercise 99
+; Design si-move.
+; This function is called for every clock tick to determine to which
+; position the objects move now. Accordingly, it consumes an element
+; of SIGS and produces another one.
+
+; SIGS -> SIGS
+; update position for each object
+(define (si-move space-invander-game-state)
+  (cond
+    [(aim? space-invander-game-state)
+     (make-aim-space-invander-game-state space-invander-game-state)]
+    [(fired? space-invander-game-state)
+     (make-fired-space-invander-game-state space-invander-game-state)]))
+
+; SIGS -> SIGS
+; given SIGS is an aim, make new SIGS with updated ufo and tank
+(define (make-aim-space-invander-game-state space-invander-game-state)
+  (make-aim (make-aim-space-invander-game-state-update-ufo-state space-invander-game-state)
+            (make-aim-space-invander-game-state-update-tank-state space-invander-game-state)))
+
+; SIGS -> ufo
+; given that SIGS is an aim, update ufo
+; ufo is posn so use make-posn rather than make-ufo
+(define (make-aim-space-invander-game-state-update-ufo-state space-invander-game-state)
+  (make-posn (+ (posn-x (aim-ufo space-invander-game-state))
+                (* (random (/ UFO-DISK-WIDTH 4))
+                   (ufo-direction-to-move 0)))
+             (+ (posn-y (aim-ufo space-invander-game-state))
+                UFO-SPEED))
+
+; SIGS -> ufo
+; given that SIGS is an aim, update tanks
+(define (make-aim-space-invander-game-state-update-tank-state space-invander-game-state)
+  (make-tank (+ (tank-loc (aim-tank space-invander-game-state))
+                (tank-vel (aim-tank space-invander-game-state)))
+             (tank-vel (aim-tank space-invander-game-state)))
+
+; SIGS -> SIGS
+; given that SIGS is a fired, update ufo and tank
+(define (make-fired-space-invander-game-state space-invander-game-state)
+  (make-fired (make-fired-space-invander-game-state-update-ufo space-invander-game-state)
+              (make-fired-space-invander-game-state-update-tank space-invander-game-state)
+              (make-fired-space-invander-game-state-update-missile space-invander-game-state)))
+
+; -1 is left, 1 is right
+(define (ufo-direction-to-move n)
+  (if (= 1 (random 2))
+      -1
+      1))
+    
+; ufo is posn, so use make-posn rather than make-ufo
+(define (make-fired-space-invander-game-state-update-ufo space-invander-game-state)
+  (make-posn (+ (posn-x (fired-ufo space-invander-game-state))
+                (* (random (/ UFO-DISK-WIDTH 4))
+                   (ufo-direction-to-move 0)))))
+
+(define (make-fired-space-invander-game-state-update-tank space-invander-game-state)
+  (make-tank (+ (tank-loc (fired-tank space-invander-game-state))
+                (tank-vel (fired-tank space-invander-game-state)))
+             (tank-vel (fired-tank space-invander-game-state))))
+
+(define (make-fired-space-invander-game-state-update-missile space-invander-game-state)
+  (make-posn (posn-x (fired-missile space-invander-game-state))
+             (- (posn-y (fired-missile space-invander-game-state))
+                MISSILE-SPEED)))
