@@ -176,3 +176,86 @@
 
 ; (define (ufo-render u im)
 ;   (place-image-at-posn-on-image UFO u im))
+
+
+; Exercise 98
+; Design the function si-game-over? for use as the stop-when handler.
+; The game stops if the UFO lands or if the missile hits the UFO.
+; For both conditions, we recommend that you check for proximity of one
+; object to another.
+
+; The stop-when clause allows for an optional second sub-expression,
+; namely a function that renders the final state of the game.
+; Design si-render-final and use it as the second part for your stop-when
+; clause in the main function of exercise 100.
+
+; SIGS -> Boolean
+; si-game-over?
+; - #true if UFO lands
+; - #true if missile hits the UFO
+; - else false
+(define (si-game-over? space-invander-game-state)
+  (or (si-ufo-landed? space-invander-game-state)
+      (si-missile-hit-ufo? space-invander-game-state)))
+
+; SIGS -> Boolean
+; si-ufo-landed?
+; - # true if UFO lands
+;(define (si-ufo-landed? space-invander-game-state)
+;  (cond
+;    [(aimed? space-invander-game-state) _]   ; collapse these since both
+;    [(fired? space-invander-game-state) _])) ;   cases have ufo and check same condition
+(define (si-ufo-landed? space-invander-game-state)
+  (>= (posn-y (space-invader-game-state-ufo space-invander-game-state))
+      (image-height BACKGROUND)))
+
+; SIGS -> Boolean
+; si-missile-hit-ufo?
+; - # true if missile hits the UFO
+(define (si-missile-hit-ufo? space-invander-game-state)
+  (cond
+    [(aimed? space-invander-game-state) #false] ; missile can hit ufo only after fired
+    [(fired? space-invander-game-state)
+     (and
+      (si-missile-y-overlaps-ufo-body space-invander-game-state)
+      (si-missile-x-overlaps-ufo-body space-invander-game-state))]))
+
+(define (si-missile-y-overlaps-ufo-body space-invander-game-state)
+  (and
+   ; missile above bottom of UFO body
+   (<= (posn-y (space-invander-game-state-missile space-invander-game-state))
+       (+ (posn-y (space-invander-game-state-ufo space-invander-game-state))
+          (image-height UFO)))
+   ; missile below top of UFO body
+   (>= (posn-y (space-invander-game-state-missile space-invander-game-state))
+       (- (posn-y (space-invander-game-state-ufo space-invander-game-state))
+          (image-height UFO)))))
+
+(define (si-missile-x-overlaps-ufo-body space-invander-game-state)
+  (and
+   ; missile to the right of the left-most extent of ufo
+   (>= (posn-x (space-invander-game-state-missile space-invander-game-state))
+       (- (posn-x (space-invander-game-state-ufo space-invander-game-state))
+          (image-width UFO)))       
+   ; missile to the left of the right-most extent of ufo
+   (<= (posn-x (space-invander-game-state-missile space-invander-game-state))
+       (+ (posn-x (space-invander-game-state-ufo space-invander-game-state))
+          (image-width UFO)))))
+
+; SIGS -> Image
+(define (si-render-final space-invander-game-state)
+  (cond
+    [(si-ufo-landed? space-invander-game-state)
+     (place-image (text "Aliens conquered Earth!" FINAL-TEXT-SIZE FINAL-TEXT-COLOR)
+                  BACKGROUND-MIDDLE-X
+                  BACKGROUND-MIDDLE-Y
+                  BACKGROUND)]
+    [(si-missile-hit-ufo? space-invander-game-state)
+     (place-image (text "Humans repelled Aliens!" FINAL-TEXT-SIZE FINAL-TEXT-COLOR)
+                  BACKGROUND-MIDDLE-X
+                  BACKGROUND-MIDDLE-Y
+                  BACKGROUND)]))
+; ^ since everything is same except text, could put cond expression inside
+; place-image expression. But, since we may want to have different text size,
+; text color, background for the two cases, we keep the cond expression
+; outside the place-image expression.
