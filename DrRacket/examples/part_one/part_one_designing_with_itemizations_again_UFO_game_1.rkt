@@ -389,22 +389,22 @@
    ; missile above bottom of UFO body
    (<= (posn-y (fired-missile space-invander-game-state))
        (+ (posn-y (fired-ufo space-invander-game-state))
-          (image-height UFO)))
+          (/ (image-height UFO) 2)))
    ; missile below top of UFO body
    (>= (posn-y (fired-missile space-invander-game-state))
        (- (posn-y (fired-ufo space-invander-game-state))
-          (image-height UFO)))))
+          (/ (image-height UFO) 2)))))
 
 (define (si-missile-x-overlaps-ufo-body space-invander-game-state)
   (and
    ; missile to the right of the left-most extent of ufo
    (>= (posn-x (fired-missile space-invander-game-state))
        (- (posn-x (fired-ufo space-invander-game-state))
-          (image-width UFO)))       
+          (/ (image-width UFO) 2)))
    ; missile to the left of the right-most extent of ufo
    (<= (posn-x (fired-missile space-invander-game-state))
        (+ (posn-x (fired-ufo space-invander-game-state))
-          (image-width UFO)))))
+          (/ (image-width UFO) 2)))))
 
 (define FINAL-TEXT-SIZE 15)
 (define FINAL-TEXT-COLOR "red")
@@ -442,21 +442,25 @@
     [(fired? space-invander-game-state)
      (make-fired-space-invander-game-state space-invander-game-state)]))
 
+; currently nothing prevents {UFO|tank} from going off-screen
+
 ; SIGS -> SIGS
 ; given SIGS is an aim, make new SIGS with updated ufo and tank
 (define (make-aim-space-invander-game-state space-invander-game-state)
   (make-aim (make-aim-space-invander-game-state-update-ufo-state space-invander-game-state)
             (make-aim-space-invander-game-state-update-tank-state space-invander-game-state)))
 
+(define DISTANCE-UFO-CAN-JUMP-HORIZONTALLY (floor (/ UFO-DISK-WIDTH 8)))
+
 ; SIGS -> ufo
 ; given that SIGS is an aim, update ufo
 ; ufo is posn so use make-posn rather than make-ufo
 (define (make-aim-space-invander-game-state-update-ufo-state space-invander-game-state)
   (make-posn (+ (posn-x (aim-ufo space-invander-game-state))
-                (* (random (floor (/ UFO-DISK-WIDTH 4)))
+                (* (random DISTANCE-UFO-CAN-JUMP-HORIZONTALLY)
                    (ufo-direction-to-move 0)))
              (+ (posn-y (aim-ufo space-invander-game-state))
-                UFO-SPEED)))
+                PIXELS-UFO-MOVES-DOWN-PER-CLOCK-TICK)))
 
 ; SIGS -> ufo
 ; given that SIGS is an aim, update tanks
@@ -481,8 +485,10 @@
 ; ufo is posn, so use make-posn rather than make-ufo
 (define (make-fired-space-invander-game-state-update-ufo space-invander-game-state)
   (make-posn (+ (posn-x (fired-ufo space-invander-game-state))
-                (* (random (floor (/ UFO-DISK-WIDTH 4)))
-                   (ufo-direction-to-move 0)))))
+                (* (random DISTANCE-UFO-CAN-JUMP-HORIZONTALLY)
+                   (ufo-direction-to-move 0)))
+             (+ (posn-y (fired-ufo space-invander-game-state))
+                PIXELS-UFO-MOVES-DOWN-PER-CLOCK-TICK)))
 
 (define (make-fired-space-invander-game-state-update-tank space-invander-game-state)
   (make-tank (+ (tank-loc (fired-tank space-invander-game-state))
@@ -492,20 +498,80 @@
 (define (make-fired-space-invander-game-state-update-missile space-invander-game-state)
   (make-posn (posn-x (fired-missile space-invander-game-state))
              (- (posn-y (fired-missile space-invander-game-state))
-                MISSILE-SPEED)))
-
-
-(define UFO-SPEED .5)
-(define MISSILE-SPEED (* 2 UFO-SPEED))
+                PIXELS-MISSILE-MOVES-UP-PER-CLOCK-TICK)))
 
 (define INITIAL-SPACE-INVADER-GAME-STATE
   (make-aim (make-posn BACKGROUND-MIDDLE-X
                        0)
             (make-tank 0
-                       3)))
+                       PIXELS-TANK-MOVES-PER-CLOCK-TICK)))
+
+; Exercise 100
+; Design the function si-control, which plays the role of the key-event handler.
+; As such, it consumes a game state and a KeyEvent and produces a new game state.
+; It reacts to three different keys:
+; - pressing the left arrow ensures that the tank moves left;
+; - pressing the right arrow ensures that the tank moves right; and
+; - pressing the space bar fires the missile if it hasn’t been launched yet.
+
+; Once you have this function, you can define the si-main function,
+; which uses big-bang to spawn the game-playing window. Enjoy!
+
+; SIGS KeyEvent -> SIGS
+(define (si-control space-invader-game-state key-event)
+  (cond
+    [(or (string=? key-event "left")
+         (string=? key-event "right"))
+     (make-space-invader-game-state-respond-to-arrow-key space-invader-game-state key-event)]
+    [(string=? key-event " ")
+     (make-space-invader-game-state-possibly-update-missile space-invader-game-state)]
+    [else space-invader-game-state]))
+
+; SIGS KeyEvent ("left" or "right") -> SIGS
+(define (make-space-invader-game-state-respond-to-arrow-key space-invader-game-state key-event)
+  (cond
+    [(aim? space-invader-game-state)
+     (make-aim (aim-ufo space-invader-game-state)
+               (make-tank (tank-loc (aim-tank space-invader-game-state))
+                          (update-tank-velocity-given-key-event (tank-vel (aim-tank space-invader-game-state)) key-event)))]
+    [(fired? space-invader-game-state)
+     (make-fired
+      (fired-ufo space-invader-game-state)
+      (make-tank (tank-loc (fired-tank space-invader-game-state))
+                 (update-tank-velocity-given-key-event (tank-vel (fired-tank space-invader-game-state)) key-event))
+      (fired-missile space-invader-game-state))]))
+
+; Number KeyEvent ("left" or "right") -> Number
+(define (update-tank-velocity-given-key-event tank-velocity key-event)
+  (cond
+    [(string=? "left" key-event)
+     (cond
+       [(> tank-velocity 0)
+        (- tank-velocity)]
+       [else tank-velocity])]
+    [(string=? "right" key-event)
+     (cond
+       [(< tank-velocity 0)
+        (- tank-velocity)]
+       [else tank-velocity])]))
+
+; SIGS -> SIGS
+; space-invader-game-state starts as an aim and create fired
+(define (make-space-invader-game-state-possibly-update-missile space-invader-game-state)
+  (cond
+    [(fired? space-invader-game-state)
+     space-invader-game-state]
+    [(aim? space-invader-game-state)
+     (make-fired
+      (aim-ufo space-invader-game-state)
+      (aim-tank space-invader-game-state)
+      (make-posn (tank-loc (aim-tank space-invader-game-state))
+                 (- BACKGROUND-HEIGHT GROUND-HEIGHT TANK-HEIGHT)))]))
+  
 
 (define (main initial-space-invader-game-state)
   (big-bang initial-space-invader-game-state
     [to-draw si-render]
     [stop-when si-game-over? si-render-final]
-    [on-tick si-move]))
+    [on-tick si-move]
+    [on-key si-control]))
