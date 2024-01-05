@@ -62,3 +62,117 @@
 ;                                          (tank-loc (aim-tank example-sigs-tank-maneuvering-into-position-to-fire-missile))
 ;                                          (- BACKGROUND-HEIGHT GROUND-HEIGHT)
 ;                                          BACKGROUND-WITH-GROUND-TREES-CLOUDS)))
+
+; SIGS -> Image
+; adds Tank, UFO, and possibly MISSILE to
+; the BACKGROUND scene
+;(define (si-render s) BACKGROUND)
+;(define (si-render s)
+;  (cond
+;    [(aim? s) (... (aim-tank s) ... (aim-ufo s) ...)]
+;    [(fired? s) (... (fired-tank s) ... (fired-ufo s) ... (fired-missile s) ...)]))
+
+; ... (tank-render (aim-tank s)
+;                  (ufo-render (aim-ufo s) BACKGROUND))
+
+; Tank Image -> Image
+; adds t to the given image im
+; (define (tank-render t im) im)
+
+; UFO Image -> Image
+; adds u to the given image im
+; (define (ufo-render u im) im)
+
+; SIGS -> Image
+; renders the given game state on top of BACKGROUND
+; for examples see figure 32
+(define (si-render s)
+  (cond
+    [(aim? s)
+     (tank-render (aim-tank s)
+                  (ufo-render (aim-ufo s) BACKGROUND))]
+    [(fired? s)
+     (tank-render
+      (fired-tank s)
+      (ufo-render (fired-ufo s)
+                  (missile-render (fired-missile s)
+                                  BACKGROUND)))]))
+
+; Missile Image -> Image
+; adds m to the given image im
+;(define (missile-render m im) im)
+
+; Exercise 97
+;Compare this expression:
+;(tank-render
+;  (fired-tank s)
+;  (ufo-render (fired-ufo s)
+;              (missile-render (fired-missile s)
+;                              BACKGROUND)))
+;with this one:
+;(ufo-render
+;  (fired-ufo s)
+;  (tank-render (fired-tank s)
+;               (missile-render (fired-missile s)
+;                               BACKGROUND)))
+;When do the two expressions produce the same result? 
+
+; The two expressions produce the same result when there is no overlap between
+; the reference boxes for the ufo and the tank.
+; The version that applies the tank to the scene last, i.e.
+; (tank-render (fired-tank s) (ufo-render ...))
+; will put the tank on top of any other object with which its reference box overlaps.
+; The version that applies the ufo to the scene last, i.e.
+; (ufo-render (fired-ufo s) (tank-render ...))
+; will put the ufo on top of any other object with which its reference box overlaps.
+; So, if in s the reference box of tank overlaps with the reference box of ufo, then
+; with the (tank-render ...) version, the tank will be fully shown and the ufo will
+; be partially blocked, and with the (ufo-render ...) version, the ufo will be
+; fully shown and the tank will be partially blocked.
+
+; Exercise 97
+; Design the functions tank-render, ufo-render, and missile-render.
+
+; Tank Image -> Image
+; adds t to the given image im
+;(check-expect (tank-render (make-tank 0 3) (empty-scene 100 100))
+;              (place-image TANK
+;                           0
+;                           (- (image-height (empty-scene 100 100))
+;                              (image-height TANK))
+;                           (empty-scene 100 100)))                          
+(define (tank-render t im)
+  (place-image TANK
+               (tank-loc tank)
+               (- (image-height (empty-scene 100 100))
+                  (image-height TANK))
+               im))
+
+; UFO Image -> Image
+; adds u to the given image im
+(define (ufo-render u im)
+  (place-image UFO
+               (posn-x u)
+               (posn-y u)
+               im))
+
+; Missile Image -> Image
+; adds m to the given image im
+(define (missile-render m im)
+  (place-image MISSILE
+               (posn-x m)
+               (posn-y m)
+               im))
+
+; Alternatively,
+; (define (place-image-at-posn-on-image image-to-place posn image-backgroun)
+;   (place-image image-to-place
+;                (posn-x posn)
+;                (posn-y posn)
+;                image-background))
+
+; (define (missile-render m im)
+;   (place-image-at-posn-on-image MISSILE m im))
+
+; (define (ufo-render u im)
+;   (place-image-at-posn-on-image UFO u im))
