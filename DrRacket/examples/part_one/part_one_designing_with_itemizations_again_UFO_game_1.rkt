@@ -34,7 +34,7 @@
 ; - y-coordinate of missle, once fired
 ; -- x-coordinate determined at firing then fixed
 
-(define BACKGROUND-WIDTH 300)
+(define BACKGROUND-WIDTH 500);900) ; 300)
 (define BACKGROUND-MIDDLE-X (/ BACKGROUND-WIDTH 2))
 (define BACKGROUND-HEIGHT (* 3/2 BACKGROUND-WIDTH))
 (define BACKGROUND-MIDDLE-Y (/ BACKGROUND-HEIGHT 2))
@@ -135,7 +135,16 @@
 
 (define TANK-WIDTH (/ BACKGROUND-WIDTH 10))
 (define TANK-HEIGHT (* 1/2 TANK-WIDTH))
-(define TANK (rectangle TANK-WIDTH TANK-HEIGHT "solid" "cornflower blue"))
+(define TANK-BODY (rectangle TANK-WIDTH TANK-HEIGHT "solid" "cornflower blue"))
+(define TANK-TOP-WIDTH (/ TANK-WIDTH 2))
+(define TANK-TOP-HEIGHT (/ TANK-HEIGHT 3))
+(define TANK-TOP-COLOR "orchid")
+(define TANK-TOP (rectangle TANK-TOP-WIDTH TANK-TOP-HEIGHT "solid" TANK-TOP-COLOR))
+(define TANK-CANNON-COLOR "dim gray")
+(define TANK-CANNON-HEIGHT (* 2 TANK-TOP-HEIGHT))
+(define TANK-CANNON-WIDTH (/ TANK-CANNON-HEIGHT 5))
+(define TANK-CANNON (rectangle TANK-CANNON-WIDTH TANK-CANNON-HEIGHT "solid" TANK-CANNON-COLOR))
+(define TANK (above/align "middle" TANK-CANNON TANK-TOP TANK-BODY))
 
 (define UFO-BODY-RADIUS (/ BACKGROUND-HEIGHT 20))
 (define UFO-DISK-WIDTH (/ BACKGROUND-WIDTH 4))
@@ -147,9 +156,9 @@
 (define MISSILE-SIDE-LENGTH (/ BACKGROUND-HEIGHT 20))
 (define MISSILE (triangle MISSILE-SIDE-LENGTH "solid" "fuchsia"))
 
-(define PIXELS-TANK-MOVES-PER-CLOCK-TICK 1)
+(define PIXELS-TANK-MOVES-PER-CLOCK-TICK 3)
 (define PIXELS-UFO-MOVES-DOWN-PER-CLOCK-TICK 1)
-(define PIXELS-MISSILE-MOVES-UP-PER-CLOCK-TICK (* 2 PIXELS-UFO-MOVES-DOWN-PER-CLOCK-TICK))
+(define PIXELS-MISSILE-MOVES-UP-PER-CLOCK-TICK (* 4 PIXELS-UFO-MOVES-DOWN-PER-CLOCK-TICK))
 
 (define BACKGROUND-WITH-GROUND-TREES-CLOUDS-TANK-AND-UFO-EXAMPLE
   (place-image
@@ -400,13 +409,13 @@
    ; missile to the right of the left-most extent of ufo
    (>= (posn-x (fired-missile space-invander-game-state))
        (- (posn-x (fired-ufo space-invander-game-state))
-          (/ (image-width UFO) 2)))
+          (/ (image-width UFO) 4)))
    ; missile to the left of the right-most extent of ufo
    (<= (posn-x (fired-missile space-invander-game-state))
        (+ (posn-x (fired-ufo space-invander-game-state))
-          (/ (image-width UFO) 2)))))
+          (/ (image-width UFO) 4)))))
 
-(define FINAL-TEXT-SIZE 15)
+(define FINAL-TEXT-SIZE 30)
 (define FINAL-TEXT-COLOR "red")
 
 ; SIGS -> Image
@@ -450,7 +459,7 @@
   (make-aim (make-aim-space-invander-game-state-update-ufo-state space-invander-game-state)
             (make-aim-space-invander-game-state-update-tank-state space-invander-game-state)))
 
-(define DISTANCE-UFO-CAN-JUMP-HORIZONTALLY (floor (/ UFO-DISK-WIDTH 8)))
+(define DISTANCE-UFO-CAN-JUMP-HORIZONTALLY (floor (/ UFO-DISK-WIDTH 4))) ; 8
 
 ; SIGS -> ufo
 ; given that SIGS is an aim, update ufo
@@ -575,3 +584,6 @@
     [stop-when si-game-over? si-render-final]
     [on-tick si-move]
     [on-key si-control]))
+
+
+; (main INITIAL-SPACE-INVADER-GAME-STATE)
