@@ -117,4 +117,14 @@ This section suggests several design problems for world program
 This section suggests several design problems for world programs
 ========
 ========
+https://docs.racket-lang.org/htdp-langs/beginner.html#%28form._%28%28lib._lang%2Fhtdp-beginner..rkt%29._check-range%29%29
+
+slope-of
+->
+slope
+
+`differentiate` calls `slope`. Example defines `differentiate` and `slope-of`.
+Example does not define `slope`. So, I claim `(define (slope-of ...` should be `(define (slope ...`
+========
+========
 ========
