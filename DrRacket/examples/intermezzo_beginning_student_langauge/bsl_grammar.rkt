@@ -239,3 +239,15 @@
 ; ==
 ; 478
 ; Use DrRacket’s stepper to confirm your computations.
+
+; Exercise 123
+; The use of if may have surprised you in another way because this intermezzo does not mention this form elsewhere.
+; In short, the intermezzo appears to explain and with a form that has no explanation either.
+; At this point, we are relying on your intuitive understanding of if as a short-hand for cond.
+; Write down a rule that shows how to reformulate
+; (if expr-test expr-then expr-else)
+; as a cond expression. 
+
+; (cond
+;  [expr-test expr-then]
+;  [else expr-else])
