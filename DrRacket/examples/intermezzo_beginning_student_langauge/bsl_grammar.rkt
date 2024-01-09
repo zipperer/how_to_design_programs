@@ -251,3 +251,27 @@
 ; (cond
 ;  [expr-test expr-then]
 ;  [else expr-else])
+
+; Exercise 124
+; Evaluate the following program, step-by-step:
+; (define PRICE 5)
+; (define SALES-TAX (* 0.08 PRICE))
+; (define TOTAL (+ PRICE SALES-TAX))
+; Does the evaluation of the following program signal an error?
+; No, because DrRacket evalutes PRICE and SALES-TAX before it reaches TOTAL.
+
+; (define COLD-F 32)
+; (define COLD-C (fahrenheit->celsius COLD-F))
+; (define (fahrenheit->celsius f)
+;   (* 5/9 (- f 32)))
+; How about the next one? Yes, it signals an error because DrRacket attempts to evaluate fahrenheit->celsius
+; before DrRacket has evaluated a definitions for fahrenheit->celsius.
+
+; (define LEFT -100)
+; (define RIGHT 100)
+; (define (f x) (+ (* 5 (expt x 2)) 10))
+; (define f@LEFT (f LEFT))
+; (define f@RIGHT (f RIGHT))
+; This one is fine too b/c DrRacket evalutes the definition of f before DrRacket evalutes definitions that use f.
+
+; Check your computations with DrRacket’s stepper. 
