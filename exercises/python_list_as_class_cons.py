@@ -24,6 +24,10 @@ def cons(value : Any,
     return Cons(first=value, rest=rest)
 
 def empty(value : Any) -> bool:
+    '''
+    I use "empty list" instead of a special constant like '().
+    I don't yet know how to mimic in python a special constant like that.
+    '''
     return value == 'empty list'
 
 import pytest
@@ -33,4 +37,3 @@ def test_cons_functions():
     assert isinstance('empty list', Cons) == False
     assert first(Cons(1, 'empty list')) == 1
     assert rest(Cons(1, 'empty list')) == 'empty list'
-    
