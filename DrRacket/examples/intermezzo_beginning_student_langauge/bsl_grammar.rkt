@@ -274,4 +274,24 @@
 ; (define f@RIGHT (f RIGHT))
 ; This one is fine too b/c DrRacket evalutes the definition of f before DrRacket evalutes definitions that use f.
 
-; Check your computations with DrRacket’s stepper. 
+; Check your computations with DrRacket’s stepper.
+
+; Exercise 125
+; Discriminate the legal from the illegal sentences.
+; Explain why the sentences are legal or illegal. 
+
+; (define-struct oops [])
+; Legal. Matches case `(define-struct name [name...])` where
+; first name : oops
+; name... is degenerate case in a zero or more construct.
+
+; (define-struct child [parents dob date])
+; Legal. Matches case `(define-struct name [name...])` where
+; first name: child
+; next names: parents dob date
+
+; (define-struct (child person) [dob date])
+; Illegal. Fail to match case `(define-struct name [name...])`  b/c
+; case does not have parens around first name and has only one name between define-struct and [
+; Fails to match other cases.
+
