@@ -1,5 +1,9 @@
 from typing import Any, List
 
+from posn import Posn
+
+# should I use Tuple instead of List? is there an empty tuple?
+# should I use ConsOrEmpty instead of List? see python_list_as_class_cons.py
 def cons(value : Any,
          given_list : List
          ) -> List:
@@ -12,10 +16,20 @@ def cons(value : Any,
     # return concatenate([value], given_list) # works
     return [value] + given_list
 
-def concatenate(list1 : List,
+def list_concatenate(list1 : List,
                 list2 : List
                 ) -> List:
     return list1 + list2
+
+def list_append(list1 : List,
+                list2 : List
+                ) -> List:
+    return concatenate(list1, list2)
+
+EMPTY_LIST = list() # type: ignore
+
+def empty(value : Any) -> bool:
+    return value == EMPTY_LIST
 
 import pytest
 
@@ -42,10 +56,17 @@ def test_cons():
 
 
 def test_concatenate():
-    assert concatenate([], []) == list()
-    assert concatenate([], ['a']) == list('a')
-    assert concatenate([], cons('a', list())) == list('a')
-    assert concatenate(cons('a', list()), []) == list('a')
-    assert concatenate(cons('a', list()), list()) == list('a')
-    assert concatenate(cons('a', list()), cons('b', list())) == ['a', 'b']
-    assert concatenate(cons('a', list()), cons('b', list())) == ['a', 'b']
+    assert list_concatenate([], []) == list()
+    assert list_concatenate([], ['a']) == list('a')
+    assert list_concatenate([], cons('a', list())) == list('a')
+    assert list_concatenate(cons('a', list()), []) == list('a')
+    assert list_concatenate(cons('a', list()), list()) == list('a')
+    assert list_concatenate(cons('a', list()), cons('b', list())) == ['a', 'b']
+    assert list_concatenate(cons('a', list()), cons('b', list())) == ['a', 'b']
+    
+def test_empty():
+    assert list() == EMPTY_LIST
+    assert 5 != EMPTY_LIST
+    assert 'hello world' != EMPTY_LIST
+    assert cons(1, EMPTY_LIST) != EMPTY_LIST
+    assert Posn(0, 0) != EMPTY_LIST
