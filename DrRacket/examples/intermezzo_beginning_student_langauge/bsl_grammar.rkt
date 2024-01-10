@@ -335,10 +335,7 @@
 ; is a disjoint type within the partition of expressions.
 ; (make-point 1 4 5) is a value, but
 ; (make-point (point-x (make-point 1 2 3)) 4 5) is a structure instance
-; constructur applied to arguments that include an argument that is not
+; constructor applied to arguments that include an argument that is not
 ; a value. So, the whole expression does not qualify as a value since the
 ; definition requires that a structure instance constructuor is applied to
 ; only values.
-
-
-
