@@ -233,3 +233,21 @@
 ;   element of the list is "Flatt" and not.
 
 ; But, both the `or` form and `cond` form are clear.
+
+; Exercise 134
+; Develop the contains? function, which determines whether some given string occurs on a given list of strings.
+
+; Note:
+; BSL actually comes with member?, a function that consumes two values and
+; checks whether the first occurs in the second, a list:
+; > (member? "Flatt" (cons "b" (cons "Flatt" '())))
+; #true
+
+; Don’t use member? to define the contains? function.
+
+; See contains-name? above
+(define (contains? input-string input-list)
+  (cond
+    [(empty? input-list) #false]
+    [(string=? input-string (first input-list)) #true]
+    [else (contains? input-string (rest input-list))]))
