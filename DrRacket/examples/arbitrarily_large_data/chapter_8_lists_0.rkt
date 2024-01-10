@@ -104,3 +104,65 @@
 ; A List-of-booleans is one of:
 ; - '()
 ; - (cons Boolean List-of-booleans)
+
+; AZ aside: what are the differences between cons and this:
+;
+; A List is one of:
+; - EMPTY-LIST
+; - (make-alternative-cons Any List)
+;
+; (define-struct alternative-cons [first rest])
+; ?
+;
+; At least one difference: (make-alternative-cons x y) does not check whether y is a List, but
+; cons does check whether y is a List in (cons x y).
+;
+; end AZ aside
+
+; Any -> Boolean
+; is the given value '()
+; (define (empty? x) ...)
+
+(define-struct pair [left right])
+; A ConsPair is a structure:
+;   (make-pair Any Any)
+
+; Any Any -> ConsPair
+; (define (our-cons a-value a-list)
+;   (make-pair a-value a-list))
+
+; A ConsOrEmpty is one of:
+; - '()
+; - (make-pair Any ConsOrEmpty)
+; interpretation:
+;   ConsOrEmpty is the class of all lists
+
+(define (our-cons a-value a-list)
+  (cond
+    [(empty? a-list) (make-pair a-value '())]
+    [(pair? a-list) (make-pair a-value a-list)]
+    [else
+     (error "cons expects second argument is a ConsOrEmpty")]))
+
+; ConsOrEmpty -> Any
+; extracts the left part of the given pair
+(define (our-first a-list)
+  (if (empty? a-list)
+      (error "our-first expects argument is non-empty ConsOrEmpty (i.e. a (make-pair ...))")
+      (pair-left a-list)))
+
+(check-error (our-first '()))
+(check-expect (our-first (make-pair 'a '())) 'a)
+(check-expect (our-first (make-pair 'a (make-pair 'b '()))) 'a)
+
+; ConsOrEmpty -> ConsOrEmpty 
+(define (our-rest a-list)
+  (if (empty? a-list)
+      '() ; not sure what to do for this case.
+      (pair-right a-list)))
+
+(check-expect (our-rest '()) '())
+(check-expect (our-rest (make-pair 'a '())) '())
+(check-expect (our-rest (make-pair 'a (make-pair 'b '()))) (make-pair 'b '()))
+(check-expect (our-rest (make-pair 'a (make-pair 'b (make-pair 'c '())))) (make-pair 'b (make-pair 'c '())))
+
