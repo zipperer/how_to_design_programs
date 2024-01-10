@@ -96,3 +96,11 @@
 ; (cons 2 '()) is not '(), so (cons "2" '()) fails to be a List-of-names by the first clause in the itemization.
 ; a. '() is a List-of-names by the first clause in the itemization.
 ; b. 2 is a Number; it is not a String. So, (cons 2 '()) fails to match the pattern (cons String List-of-names).
+
+; Exercise 131
+; Provide a data definition for representing lists of Boolean values.
+; The class contains all arbitrarily long lists of Booleans.
+
+; A List-of-booleans is one of:
+; - '()
+; - (cons Boolean List-of-booleans)
