@@ -339,3 +339,32 @@
 ; a value. So, the whole expression does not qualify as a value since the
 ; definition requires that a structure instance constructuor is applied to
 ; only values.
+
+; Exercise 127
+; Suppose the program contains
+; (define-struct ball [x y speed-x speed-y])
+
+; Predict the results of evaluating the following expressions.
+; Check your predictions in the interactions area and with the stepper. 
+; (number? (make-ball 1 2 3 4))
+; #false since (make-ball ...) is a ball?, and an instance of a structure
+; is not an instance of a number.
+
+; (ball-speed-y (make-ball (+ 1 2) (+ 3 3) 2 3))
+; == arithmetic -- evaluate arguments
+; (ball-speed-y (make-ball 3 6 2 3))
+; == structure instance selector
+; 3
+
+; (ball-y (make-ball (+ 1 2) (+ 3 3) 2 3))
+; == arithmetic -- evaluate arguments
+; (ball-y (make-ball 3 6 2 3))
+; == structure instance selector
+; 6
+
+; (ball-x (make-posn 1 2))
+; error: ball-x expects ball? got posn
+
+; (ball-speed-y 5)
+; error: ball-speed-y expects ball? got number
+
