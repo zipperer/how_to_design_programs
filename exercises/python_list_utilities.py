@@ -24,12 +24,24 @@ def list_concatenate(list1 : List,
 def list_append(list1 : List,
                 list2 : List
                 ) -> List:
-    return concatenate(list1, list2)
+    return list_concatenate(list1, list2)
 
 EMPTY_LIST = list() # type: ignore
 
 def empty(value : Any) -> bool:
     return value == EMPTY_LIST
+
+def first(input_list : List) -> Any:
+    if empty(input_list):
+        raise Exception('first expects non-empty list')
+    else:
+        return input_list[0]
+
+def rest(input_list : List) -> List:
+    if empty(input_list): # not sure what to do for this case
+        return EMPTY_LIST
+    else:
+        return input_list[1:]
 
 import pytest
 
