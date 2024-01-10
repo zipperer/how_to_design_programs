@@ -295,3 +295,50 @@
 ; case does not have parens around first name and has only one name between define-struct and [
 ; Fails to match other cases.
 
+; Exercise 126
+; Identify the values among the following expressions,
+; assuming the definitions area contains these structure type definitions.
+; Explain why the expressions are values or not. 
+; (define-struct point [x y z])
+; (define-struct none  [])
+; (make-point 1 2 3)
+
+; (make-point (make-point 1 2 3) 4 5)
+; 1 2 3 4 and 5 are values
+; (make-point 1 2 3) is a value
+; (make-point (make-point 1 2 3) 4 5) is a value
+
+; (make-point (+ 1 2) 3 4)
+; 1 2 3 and 4 are values because they are numbers.
+; (make-point 3 3 4) is a value.
+; "A value is one of: a number, a Boolean, a string, an image, or a structure value
+; (make-c _value-1 ... _value-n) assuming a structure type c is defined."
+; (+ 1 2) is a function application (an expression form that is not a value).
+; The result of (+ 1 2) (i.e. 3) is a value. But (+ 1 2) itself is not a value.
+; (make-point (+ 1 2) 3 4) is not a value b/c it contains an expression (+ 1 2)
+; that is not a value, and in the definition of values the (make-c ...) form
+; assumes the arguments are values.
+
+
+; (make-none)
+; (make-none) is a value,
+; because it is structure value, because it is an application of a structure instance
+; constructor make-structure-name applied to arguments. In this case, degenerate sequence (i.e. empty sequence)
+; of arguments.
+
+; (make-point (point-x (make-point 1 2 3)) 4 5)
+; 1 2 3 4 and 5 are values because they are numbers.
+; (make-point 1 2 3) because it is a structure instance constructor
+; applied to values.
+; The result of (point-x (make-point 1 2 3)) (i.e. 1) is a value, but
+; (point-x (make-point 1 2 3)) itself is a function application which
+; is a disjoint type within the partition of expressions.
+; (make-point 1 4 5) is a value, but
+; (make-point (point-x (make-point 1 2 3)) 4 5) is a structure instance
+; constructur applied to arguments that include an argument that is not
+; a value. So, the whole expression does not qualify as a value since the
+; definition requires that a structure instance constructuor is applied to
+; only values.
+
+
+
