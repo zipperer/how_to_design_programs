@@ -368,3 +368,56 @@
 ; (ball-speed-y 5)
 ; error: ball-speed-y expects ball? got number
 
+; Exercise 128
+; Copy the following tests into DrRacket’s definitions area.
+; Validate that all of them fail and explain why. 
+
+;(check-member-of "green" "red" "yellow" "grey")
+; "green" is none of the values that follow: "red" "yellow" "grey"
+; I edit the form to include "green" and the test passes:
+; (check-member-of "green" "red" "yellow" "grey" "green")
+
+;(check-within (make-posn #i1.0 #i1.1)
+;              (make-posn #i0.9 #i1.2)  0.01)
+; 1.0 and .9 differ by .1. That difference exceeds 0.01 -- the provided
+; distance to allow. Similarly, 1.1 and 1.2 differ by .1, and .1 exceeds
+; the provided distance to allow: .01.
+; I edit the form to allow .1 and the test passes.
+; (check-within (make-posn #i1.0 #i1.1)
+;               (make-posn #i0.9 #i1.2)  0.1)
+
+; (check-range #i0.9 #i0.6 #i0.8)
+; #i0.9 is greater than the lower bound, #i0.6.
+; But, #i0.9 is greater than the upper bound, #i0.8.
+; So, #i0.9 is not in the range.
+; I edit the form so that the upper bound is #0.9 and the test succeeds.
+; (check-range #i0.9 #i0.6 #i0.9)
+
+; (check-random (make-posn (random 3) (random 9))
+;               (make-posn (random 9) (random 3)))
+; The expressions (random i) and (random j) appear in different orders
+; in the two forms: first as (random i) (random j) then as (random j) (random i).
+
+; Quote from documentation
+; "The form (i.e. (check-random expression expected-expression)) supplies the same random-number
+; generator to both parts (i.e. to expreesion and expected-expression). If both parts request
+; random numbers from the same interval _in the same order_, they receive the same random numbers."
+
+; Since (make-posn (random 3) (random 9)) and (make-posn (random 9) (random 3)) request
+; random numbers from the same interval _in different order_, and the documentation makes
+; no guaranteee about receiving the same random numbers when the order differs.
+
+; I edit the form to reorder the requests for random numbers and the test succeeds:
+; (check-random (random 3) (random 3))
+; (check-random (make-posn (random 3) (random 9))
+;               (make-posn (random 3) (random 9)))
+
+; (check-satisfied 4 odd?)
+; "(check-satisfied expression predicate) checks that the first expression satisfies
+;  the named predicate." That is, it checks that the predicate applied to the result
+;  of the expression returns #true.
+; 4 is not odd?. 4 is even. even and odd are disjoint.
+; I edit the test to use even? and the test passes.
+; (check-satisfied 4 even?)
+; I edit the test to use an odd number and the test passes.
+; (check-satisfied 3 odd?)
