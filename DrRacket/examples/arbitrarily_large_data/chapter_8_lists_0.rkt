@@ -61,3 +61,38 @@
 ; interpretation:
 ;   a point in 3-dimensional space
 
+; A List-of-names is one of:
+; - '()
+; - (cons String List-of-names)
+; interpretation:
+;   a list of invitees, by last name
+
+; Exercise 130
+; Create an element of List-of-names that contains five Strings.
+; Sketch a box representation of the list similar to those found in figure 44.
+
+(define LIST-OF-FIVE-NAMES (cons "Felleisen"
+                                 (cons "Findler"
+                                       (cons "Krishnamurthi"
+                                             (cons "Flatt"
+                                                   (cons "Zipperer" '()))))))
+
+; Explain why
+;   (cons "1" (cons "2" '()))
+; is an element of List-of-names and why
+;   (cons 2 '())
+; isn’t.
+
+; claim: (cons "1" (cons "2" '()))
+; argument:
+; a. '() is a List-of-names by the first clause in the itemization.
+; b. (cons "2" '()) is a List-of-names by the second clause in the itemization; for,
+;      "2" is a String and '() is an element of List-of-names by (a).
+; c. (cons "1" (cons "2" '())) is a List-of-names by the second clause in the itemization; for,
+;    "1" is a String and (cons "2" '()) is a List-of-names by (b).
+
+; claim: (cons 2 '()) is not an element of List-of-names
+; argument:
+; (cons 2 '()) is not '(), so (cons "2" '()) fails to be a List-of-names by the first clause in the itemization.
+; a. '() is a List-of-names by the first clause in the itemization.
+; b. 2 is a Number; it is not a String. So, (cons 2 '()) fails to match the pattern (cons String List-of-names).
