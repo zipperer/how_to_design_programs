@@ -166,3 +166,29 @@
 (check-expect (our-rest (make-pair 'a (make-pair 'b '()))) (make-pair 'b '()))
 (check-expect (our-rest (make-pair 'a (make-pair 'b (make-pair 'c '())))) (make-pair 'b (make-pair 'c '())))
 
+; List -> Boolean
+; check whether input list contains "Flatt"
+(check-expect (contains-flatt? '()) #false)
+(check-expect (contains-flatt? (cons "Flatt" '())) #true)
+(check-expect (contains-flatt? (cons "Flatt" (cons "Felleisen" '()))) #true)
+(check-expect (contains-flatt? (cons "Felleisen" (cons "Flatt" '()))) #true)
+(check-expect (contains-flatt? (cons "Felleisen" (cons "Krishnamurthi" '()))) #false)
+(define (contains-flatt? input-list)
+  (cond
+    [(empty? input-list) #false]
+    [(string=? "Flatt" (first input-list)) #true]
+    [else (contains-flatt? (rest input-list))]))
+
+(define (contains-name? name input-list)
+  (cond
+    [(empty? input-list) #false]
+    [(string=? name (first input-list)) #true]
+    [else (contains-name? name (rest input-list))]))
+
+(check-expect (contains-flatt?-alternative '()) #false)
+(check-expect (contains-flatt?-alternative (cons "Flatt" '())) #true)
+(check-expect (contains-flatt?-alternative (cons "Flatt" (cons "Felleisen" '()))) #true)
+(check-expect (contains-flatt?-alternative (cons "Felleisen" (cons "Flatt" '()))) #true)
+(check-expect (contains-flatt?-alternative (cons "Felleisen" (cons "Krishnamurthi" '()))) #false)
+(define (contains-flatt?-alternative input-list)
+  (contains-name? "Flatt" input-list))
