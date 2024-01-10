@@ -23,18 +23,18 @@
                                                   (cons "Pluto" '()))))))))))
 
 (define ITEMS-FOR-MEAL
-  (cons "Steak"
-        (cons "French Fries"
-              (cons "Beans"
-                    (cons "Bread"
-                          (cons "Water"
-                                (cons "Brie Cheese"
-                                      (cons "Ice Cream" '()))))))))
+  (cons "steak"
+        (cons "french fries"
+              (cons "beans"
+                    (cons "bread"
+                          (cons "water"
+                                (cons "brie cheese"
+                                      (cons "ice cream" '()))))))))
 
 (define COLORS
-  (cons "Red"
-        (cons "White"
-              (cons "Blue" '()))))
+  (cons "red"
+        (cons "white"
+              (cons "blue" '()))))
 
 ; I like the boxes-in-boxes picture when depicting a single list.
 
@@ -54,4 +54,10 @@
 ; | segment2 |  o-|--
 ; |---------------|  
 
+
+;----------------------------------------------
+; A 3LON is a list of three numbers:
+;   (cons Number (cons Number (cons Number '())))
+; interpretation:
+;   a point in 3-dimensional space
 
