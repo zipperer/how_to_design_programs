@@ -192,3 +192,44 @@
 (check-expect (contains-flatt?-alternative (cons "Felleisen" (cons "Krishnamurthi" '()))) #false)
 (define (contains-flatt?-alternative input-list)
   (contains-name? "Flatt" input-list))
+
+; Exercise 132
+; Use DrRacket to run contains-flatt? in this example:
+(contains-flatt?
+ (cons "Fagan"
+       (cons "Findler"
+             (cons "Fisler"
+                   (cons "Flanagan"
+                         (cons "Flatt"
+                               (cons "Felleisen"
+                                     (cons "Friedman" '()))))))))
+; What answer do you expect? #true
+
+; Exercise 133
+; Here is another way of formulating the second cond clause in contains-flatt?:
+; ... (cond
+;       [(string=? (first alon) "Flatt") #true]
+;       [else (contains-flatt? (rest alon))]) ...
+; Explain why this expression produces the same answers as the `or` expression in the version of figure 47.
+; Which version is clearer to you? Explain.
+
+; claim: this version produces the same answers as the `or` expression in the version of figure 47.
+; argument:
+; consider the possible cases for each version:
+; (string=? (first alon) "Flatt") == #true
+;  - (string=? (first alon) "Flatt") with `or` version. the left side of `or` returns #true so whole expression #true
+;  - (string=? (first alon) "Flatt") with `cond` version. the question part of the cond clause is #true, so
+;    the value of the cond is the value of the answer which is #true
+; (string=? (first alon) "Flatt") == #false
+;  - with `or` version, the value of the `or` will be the value of the right-hand-side of the `or`, since the value
+;    of left-hand-side is #false
+;  - with `cond` version, the value of the expression will be the value of the else answer, since the value
+;    of the `(cond [#false value1] [else value2])` is the value of value2 by cond_false rule.
+;  So, in both cases, the value will be the value of (contains-flatt? (rest alon)).
+
+; One appealing property of the `or` version: the `cond` cases on the input datatype and there is one case for each
+;   possibility. The value of the second case is the value of the `or`. With the `cond` version, `cond` is used in
+;   two distinct ways: (1) to case on the type of the input datatype and (2) to distinguish between when the first
+;   element of the list is "Flatt" and not.
+
+; But, both the `or` form and `cond` form are clear.
