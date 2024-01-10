@@ -100,6 +100,14 @@ def contains_flatt_match(input_list : List) -> bool:
         case _:
             return contains_flatt_match(rest(input_list))
 
+def contains_flatt_match_or(input_list : List) -> bool:
+    match input_list:
+        case []:
+            return False
+        case list():
+            return ((first(input_list) == 'Flatt') or
+                    contains_flatt_match_or(rest(input_list)))
+
 def contains_name_match(input_list : List,
                         name : Any
                         ) -> bool:
@@ -118,7 +126,14 @@ def test_contains_flatt_match():
     assert contains_flatt_match(cons('Krishnamurthi', cons('Flatt', EMPTY_LIST))) == True
     assert contains_flatt_match(EMPTY_LIST) == False
     assert contains_flatt_match(cons('Krishnamurthi', cons('Flatt', cons('Findler', EMPTY_LIST)))) == True
-
+    assert contains_flatt_match(cons("Fagan",
+                                     cons("Findler",
+                                          cons("Fisler",
+                                               cons("Flanagan",
+                                                    cons("Flatt",
+                                                         cons("Felleisen",
+                                                              cons("Friedman", EMPTY_LIST))))))) == True
+                                
 def test_contains_name_match():
     assert contains_name_match(cons('Flatt', EMPTY_LIST), 'Flatt') == True
     assert contains_name_match(cons('Krishnamurthi', cons('Flatt', EMPTY_LIST)), 'Flatt') == True
