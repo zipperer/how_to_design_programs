@@ -127,4 +127,12 @@ slope
 Example does not define `slope`. So, I claim `(define (slope-of ...` should be `(define (slope ...`
 ========
 ========
+https://htdp.org/2023-8-14/Book/part_two.html#%28part._sec~3alists-programming%29
+Again, the answer case must be #true because the list contains "Flatt".
+->
+Again, the answer must be #true because the list contains "Flatt".
+or
+Again, the answer in this case must be #true because the list contains "Flatt".
+========
+========
 ========
