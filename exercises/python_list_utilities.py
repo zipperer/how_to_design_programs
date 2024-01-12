@@ -10,15 +10,14 @@ def cons(value : Any,
     '''
       make list from `value` and `given_list`.
       `value` is first element in new list.
-     # to confirm: result is new list
     '''
     # return list(value) + given_list # does not work, b/c when call cons('Mercury', []) get ['M', 'e', 'r', 'c', 'u', 'r', 'y']
     # return concatenate([value], given_list) # works
     return [value] + given_list
 
 def list_concatenate(list1 : List,
-                list2 : List
-                ) -> List:
+                     list2 : List
+                     ) -> List:
     return list1 + list2
 
 def list_append(list1 : List,
@@ -74,7 +73,9 @@ def test_concatenate():
     assert list_concatenate(cons('a', list()), []) == list('a')
     assert list_concatenate(cons('a', list()), list()) == list('a')
     assert list_concatenate(cons('a', list()), cons('b', list())) == ['a', 'b']
-    assert list_concatenate(cons('a', list()), cons('b', list())) == ['a', 'b']
+    assert list_concatenate(list_concatenate(cons('a', list()), 
+                                             cons('b', list())),
+                            cons('c', list())) == ['a', 'b', 'c']
     
 def test_empty():
     assert list() == EMPTY_LIST
