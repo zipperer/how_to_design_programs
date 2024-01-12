@@ -27,7 +27,7 @@ def first_match(input_list : List) -> Any:
     match input_list:
         case []:
             raise Exception('first expects non-empty list')
-        case _: # this relies on external type checking 
+        case _: # this relies on external type checking. i.e. the body of the function does not enforce that the value will be a list. see first_match_checking_type
             return input_list[0]
 
 def first_match_checking_type(input_list : List) -> Any:
@@ -60,7 +60,7 @@ def contains_flatt_if(input_list : List) -> bool:
     elif first(input_list) == 'Flatt':
         return True
     else:
-        return contains_flatt(rest(input_list))
+        return contains_flatt_if(rest(input_list))
 
 def contains_name_if(input_list : List,
                      name : Any
@@ -76,7 +76,7 @@ def contains_name_if(input_list : List,
 #     match input_list:
 #         case list():
 #             return False
-#         case ['Flatt':remaining_list]:
+#         case ['Flatt':remaining_list]: # incorrect sytnax. see contains_flatt_match{,_1}
 #             return True
 #         case _:
 #             return contains_flatt_match(rest(input_list))
@@ -132,7 +132,7 @@ def test_contains_flatt_match():
                                                cons("Flanagan",
                                                     cons("Flatt",
                                                          cons("Felleisen",
-                                                              cons("Friedman", EMPTY_LIST))))))) == True
+                                                              cons("Friedman", EMPTY_LIST)))))))) == True
                                 
 def test_contains_name_match():
     assert contains_name_match(cons('Flatt', EMPTY_LIST), 'Flatt') == True
