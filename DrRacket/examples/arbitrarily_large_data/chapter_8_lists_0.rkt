@@ -83,7 +83,7 @@
 ;   (cons 2 '())
 ; isn’t.
 
-; claim: (cons "1" (cons "2" '()))
+; claim: (cons "1" (cons "2" '())) is an element of List-of-names
 ; argument:
 ; a. '() is a List-of-names by the first clause in the itemization.
 ; b. (cons "2" '()) is a List-of-names by the second clause in the itemization; for,
@@ -217,8 +217,8 @@
 ; argument:
 ; consider the possible cases for each version:
 ; (string=? (first alon) "Flatt") == #true
-;  - (string=? (first alon) "Flatt") with `or` version. the left side of `or` returns #true so whole expression #true
-;  - (string=? (first alon) "Flatt") with `cond` version. the question part of the cond clause is #true, so
+;  - (string=? (first alon) "Flatt") with `or` version: the left side of `or` returns #true so whole expression #true
+;  - (string=? (first alon) "Flatt") with `cond` version: the question part of the cond clause is #true, so
 ;    the value of the cond is the value of the answer which is #true
 ; (string=? (first alon) "Flatt") == #false
 ;  - with `or` version, the value of the `or` will be the value of the right-hand-side of the `or`, since the value
