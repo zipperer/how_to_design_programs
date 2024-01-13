@@ -287,3 +287,29 @@
     [(empty? alos) 0]
     [else
      (add1 (how-many (rest alos)))]))
+
+; Exercise 137
+; Compare the template for contains-flatt? with the one for how-many.
+; Ignoring the function name, they are the same. Explain the similarity.
+; Template for contains-flatt?:
+; (define (contains-flatt? alos)
+;   (cond
+;    [(empty? alos) ...]
+;    [(cons? alos)
+;     ... (first alos) ... ; String
+;     ... (rest alos) ...  ; List-of-string 
+;     ... (contains-flatt? (rest alos)) ... ; boolean for whether "Flatt" in (rest alos)
+;    ]))
+; Template for how-many:
+; (define (how-many alos)
+;   (cond
+;     [(empty? alos) ...]
+;     [(cons? alos)
+;      ... (first alos) ... ; String
+;      ... (rest alos) ...  ; List-of-string
+;      ... (how-many (rest alos)) ... ; count of how many elements in (rest alos)
+
+; Both templates:
+; - have a cond that checks (a) empty? and (b) cons?.
+; - in the cond clause for cons?, have selector expressions for first and rest
+; - in the cond clause for cons?, have natural recursion expression 
