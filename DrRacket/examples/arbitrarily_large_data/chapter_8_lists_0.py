@@ -133,6 +133,15 @@ def contains_name_match(input_list : List,
         case _:
             return contains_name_match(rest(input_list), name)
 
+# List-of-strings -> Number
+# determines how many strings are in a list of strings
+def how_many(a_list_of_strings : List) -> int:
+    match a_list_of_strings:
+        case []:
+            return 0
+        case _:
+            return 1 + how_many(rest(a_list_of_strings))
+
 import pytest
 
 def test_contains_flatt_match():
@@ -164,3 +173,9 @@ def test_rest_match():
     assert rest_match(cons('Flatt', EMPTY_LIST)) == EMPTY_LIST
     assert rest_match(cons('Krishnamurthi', cons('Flatt', EMPTY_LIST))) == cons('Flatt', EMPTY_LIST)    
     assert rest_match(cons('Krishnamurthi', cons('Flatt', cons('Findler', EMPTY_LIST)))) == cons('Flatt', cons('Findler', EMPTY_LIST))
+
+def test_how_many():
+    assert how_many(EMPTY_LIST) == 0
+    assert how_many(cons('Flatt', EMPTY_LIST)) == 1
+    assert how_many(cons('Krishnamurthi', cons('Flatt', EMPTY_LIST))) == 2
+    assert how_many(cons('Krishnamurthi', cons('Flatt', cons('Findler', EMPTY_LIST)))) == 3

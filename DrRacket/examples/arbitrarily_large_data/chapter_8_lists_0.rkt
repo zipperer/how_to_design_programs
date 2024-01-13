@@ -268,4 +268,22 @@
 ; Validate with DrRacket’s stepper
 ; (our-first (our-cons "a" '())) ; == "a"
 ; (our-rest (our-cons "a" '())) ; == '()
-; See What Is '(), What Is cons for the definitions of these functions. 
+; See What Is '(), What Is cons for the definitions of these functions.
+
+; List-of-strings -> Number
+; counts how many strings alos contains
+;(define (how-many alos)
+;  (cond
+;    [(empty? alos) 0]
+;    [else
+;     ... (first alos) ; String
+;     ... (rest alos)  ; List-of-strings
+;     ... (how-many (rest alos)) ; number of strings in rest of alos
+(check-expect (how-many '()) 0)
+(check-expect (how-many (cons "a" '())) 1)
+(check-expect (how-many (cons "b" (cons "a" '()))) 2)
+(define (how-many alos)
+  (cond
+    [(empty? alos) 0]
+    [else
+     (add1 (how-many (rest alos)))]))
