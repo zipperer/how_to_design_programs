@@ -138,3 +138,13 @@
 ;        b13. So, (cons ct nelot0) has form (cons CTemperature List-of-temperatures).
 ;        b14. Since nelot := (cons ct nelot0) and (cons ct nelot0) has form (cons CTemperature List-of-temperatures),
 ;             nelot has form (cons CTemperature List-of-temperatures). So, nelot is a List-of-temperatures.
+
+
+#|
+(define (sum ne-l)
+  (cond
+    [(empty? (rest ne-l)) (... (first ne-l) ...)]
+    [else (... (first ne-l) ... (rest ne-l) ...)]))
+|#
+; Before you read on, explain why the first clause does not contain the selector expression (rest ne-l).
+; Answer: (rest ne-l) is known to be empty.
