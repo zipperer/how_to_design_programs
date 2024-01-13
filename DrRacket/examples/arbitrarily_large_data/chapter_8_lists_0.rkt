@@ -264,3 +264,8 @@
 ;    (cons "A" (cons "B" (cons "C" '()))))
 ;  => #false
 
+; Exercise 136
+; Validate with DrRacket’s stepper
+; (our-first (our-cons "a" '())) ; == "a"
+; (our-rest (our-cons "a" '())) ; == '()
+; See What Is '(), What Is cons for the definitions of these functions. 
