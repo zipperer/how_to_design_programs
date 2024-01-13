@@ -251,3 +251,16 @@
     [(empty? input-list) #false]
     [(string=? input-string (first input-list)) #true]
     [else (contains? input-string (rest input-list))]))
+
+; Exercise 135
+; Use DrRacket’s stepper to check the calculation for
+;   (contains-flatt? (cons "Flatt" (cons "C" '())))
+
+; Also use the stepper to determine the value of
+;   (contains-flatt?
+;     (cons "A" (cons "Flatt" (cons "C" '()))))
+; What happens when "Flatt" is replaced with "B"?
+;  (contains-flatt?
+;    (cons "A" (cons "B" (cons "C" '()))))
+;  => #false
+
