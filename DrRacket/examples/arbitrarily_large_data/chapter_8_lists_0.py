@@ -92,6 +92,7 @@ def contains_flatt_match_1(input_list : List) -> bool:
             return contains_flatt_match(rest(input_list))
         
 def contains_flatt_match(input_list : List) -> bool:
+    breakpoint() # exercise 135
     match input_list:
         case []:
             return False
@@ -101,12 +102,25 @@ def contains_flatt_match(input_list : List) -> bool:
             return contains_flatt_match(rest(input_list))
 
 def contains_flatt_match_or(input_list : List) -> bool:
+    breakpoint() # exercise 135
     match input_list:
         case []:
             return False
         case list():
             return ((first(input_list) == 'Flatt') or
                     contains_flatt_match_or(rest(input_list)))
+
+# Exercise 135:
+#...
+# use the stepper to determine the value of
+# (contains-flatt?
+#   (cons "A" (cons "Flatt" (cons "C" '()))))
+# ...
+#root@b8566b142e10:/how_to_design_programs/exercises# python3 -i ../DrRacket/examples/arbitrarily_large_data/chapter_8_lists_0.py
+#>>> contains_flatt_match_or(cons('a', cons('Flatt', cons('c', list()))))
+# ...
+#>>> contains_flatt_match_or(cons('a', cons('b', cons('c', list()))))
+# ...
 
 def contains_name_match(input_list : List,
                         name : Any
