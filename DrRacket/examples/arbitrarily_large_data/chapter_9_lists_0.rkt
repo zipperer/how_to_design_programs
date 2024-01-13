@@ -68,3 +68,73 @@
   (if (empty? list-of-temperatures)
       (error "Average expects a non-empty list")
       (average-temperature list-of-temperatures)))
+
+
+; An NEList-of-temperatures is one of: 
+; – ???
+; – (cons CTemperature NEList-of-temperatures)
+
+; An NEList-of-temperatures is one of: 
+; – (cons CTemperature '())
+; – (cons CTemperature NEList-of-temperatures)
+; interpretation non-empty lists of Celsius temperatures
+; Examples:
+; (cons 0 '()) is an NEList-of-temperatures
+; '() is NOT an NEList-of-temperatures
+; (cons 1 (cons 0 '())) is an NEList-of-temperatures
+
+; NEList-of-temperatures -> Number
+; computes the average temperature 
+ 
+(check-expect (average (cons 1 (cons 2 (cons 3 '()))))
+              2)
+ 
+(define (average ne-l)
+  (/ (sum ne-l)
+     (how-many ne-l)))
+
+; Exercise 144
+; Will sum and how-many work for NEList-of-temperatures even though they are
+; designed for inputs from List-of-temperatures?
+; If you think they don’t work, provide counter-examples.
+; If you think they would, explain why.
+; claim: sum and how-many will work for NEList-of-temperatures even though
+; they are designed for inputs from List-of-temperatures.
+;
+; Form of argument: sum and how-many work for List-of-temperatures.
+;                   Every NEList-of-temperatures is a List-of-temperatures.
+;                   So, sum and how-many apply to a set of values, and
+;                   we have a subset of those values.
+;                   Since sum and how-many apply to every value in the set,
+;                   sum and how-many apply to very value in the subset.
+;
+; argument:
+; recall
+; A List-of-temperatures is one of: 
+; – '()
+; – (cons CTemperature List-of-temperatures)
+; and
+; ; An NEList-of-temperatures is one of: 
+; – (cons CTemperature '())
+; – (cons CTemperature NEList-of-temperatures)
+;
+; lemma: an element of NEList-of-temperatures is an element of List-of-temperatures.
+; argument:
+; Take arbitrary element, nelot, of NEList-of-temperatures.
+; nelot has form either (cons CTemperature '()) or (cons CTemperature NEList-of-temperatures).
+; a. Suppose nelot has form (cons CTemperature '()).
+;    Then nelot is a List-of-temperatures; for:
+;    a1. '() is a List-of-temperatures
+;    a2. (cons CTemperature '()) is a List-of-temperatures for any CTemperature -- from a1 and second clause of List-of-temperatures.
+;    a3. since nelot has form (cons CTemperature '()) and (cons CTemperature '()) is a
+;      List-of-temperatures for any CTemperature, nelot is a List-of-temperatures.
+; b. Suppose nelot has form (cons CTemperature NEList-of-temperatures) [i.e. nelot := (cons ct nelot0)]
+;    Then nelot is a List-of-temperatures; for:
+;    b1. nelot was built by cons from (cons CTemperature '()). ; ignore
+;    b2. we showed above that (cons CTemperature '()) is a List-of-temperatures. This is the base case for an induction.
+;    b3. Suppose that nelot0 is a List-of-temperatures. Show that nelot (:= (cons ct nelot0)) is a List-of-temperatures
+;        b11. Second clause of List-of-temperatures says (cons CTemperature List-of-temperatures) is a List-of-temperatures.
+;        b12. We assume in induction hypothesis that nelot0 is a List-of-temperatures.
+;        b13. So, (cons ct nelot0) has form (cons CTemperature List-of-temperatures).
+;        b14. Since nelot := (cons ct nelot0) and (cons ct nelot0) has form (cons CTemperature List-of-temperatures),
+;             nelot has form (cons CTemperature List-of-temperatures). So, nelot is a List-of-temperatures.
