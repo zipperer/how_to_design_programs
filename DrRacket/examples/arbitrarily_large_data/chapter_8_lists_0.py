@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Union
 
 EMPTY_LIST = list() # type: ignore
 
@@ -142,6 +142,39 @@ def how_many(a_list_of_strings : List) -> int:
         case _:
             return 1 + how_many(rest(a_list_of_strings))
 
+# Exercise 138
+# Here is a data definition for representing sequences of amounts of money:
+# A List-of-amounts is one of: 
+# – '()
+# – (cons PositiveNumber List-of-amounts)
+# Create some examples to make sure you understand the data definition. 
+# '() is a List-of-amounts
+# (cons 1 '()) is a List-of-amounts
+# (cons 2 (cons 1 '())) is a List-of-amounts
+# Also add an arrow for the self-reference.
+# - Arrow from List-of-amounts in (cons PositiveNumber List-of-amounts) to List-of-amounts in 'A List-of-amounts is one of:...'
+# Design the sum function, which consumes a List-of-amounts and computes the sum of the amounts. 
+# Use DrRacket’s stepper to see how (sum l) works for a short list l in List-of-amounts. 
+
+Number = Union[int,float]
+
+def sum_list_of_amounts(list_of_amounts : List[Number]) -> Number:
+    '''
+    computes sum of numbers in list_of_amounts
+    '''
+    #breakpoint()
+    match list_of_amounts:
+        case []:
+            return 0
+        case [first_amount, *rest_of_amounts]:
+            return first_amount + sum_list_of_amounts(rest_of_amounts)
+
+def sum_list_of_amounts_if(list_of_amounts : List[Number]) -> Number:
+    if empty(list_of_amounts):
+        return 0
+    else:
+        return first(list_of_amounts) + sum_list_of_amounts_if(rest(list_of_amounts))
+
 import pytest
 
 def test_contains_flatt_match():
@@ -179,3 +212,15 @@ def test_how_many():
     assert how_many(cons('Flatt', EMPTY_LIST)) == 1
     assert how_many(cons('Krishnamurthi', cons('Flatt', EMPTY_LIST))) == 2
     assert how_many(cons('Krishnamurthi', cons('Flatt', cons('Findler', EMPTY_LIST)))) == 3
+
+def test_sum_list_of_amounts():
+    assert sum_list_of_amounts(EMPTY_LIST) == 0
+    assert sum_list_of_amounts(cons(1, EMPTY_LIST)) == 1
+    assert sum_list_of_amounts(cons(2, cons(1, EMPTY_LIST))) == 3
+    assert sum_list_of_amounts(cons(10, cons(9, cons(8, cons(4, EMPTY_LIST))))) == 31
+
+def test_sum_list_of_amounts_if():
+    assert sum_list_of_amounts_if(EMPTY_LIST) == 0
+    assert sum_list_of_amounts_if(cons(1, EMPTY_LIST)) == 1
+    assert sum_list_of_amounts_if(cons(2, cons(1, EMPTY_LIST))) == 3
+    assert sum_list_of_amounts_if(cons(10, cons(9, cons(8, cons(4, EMPTY_LIST))))) == 31
