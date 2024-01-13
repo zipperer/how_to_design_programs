@@ -148,3 +148,19 @@
 |#
 ; Before you read on, explain why the first clause does not contain the selector expression (rest ne-l).
 ; Answer: (rest ne-l) is known to be empty.
+
+; Exercise 146
+; Design how-many for NEList-of-temperatures.
+; Doing so completes average, so ensure that average passes all of its tests, too.
+
+; A NonEmptyList is one of:
+; - (cons Any '())
+; - (cons Any NonEmptyList)
+(check-expect (how-many-non-empty-list (cons "a" '())) 1)
+(check-expect (how-many-non-empty-list (cons 3 (cons "a" '()))) 2)
+(check-expect (how-many-non-empty-list (cons 'banana (cons 4 (cons "a" '())))) 3)
+(define (how-many-non-empty-list non-empty-list)
+  (cond
+    [(empty? (rest non-empty-list)) 1]
+    [else ; i.e. (cons? (rest non-empty-list))
+     (+ 1 (how-many-non-empty-list (rest non-empty-list)))]))
