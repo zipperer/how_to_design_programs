@@ -92,7 +92,7 @@ def contains_flatt_match_1(input_list : List) -> bool:
             return contains_flatt_match(rest(input_list))
         
 def contains_flatt_match(input_list : List) -> bool:
-    breakpoint() # exercise 135
+    # breakpoint() # exercise 135
     match input_list:
         case []:
             return False
@@ -102,7 +102,7 @@ def contains_flatt_match(input_list : List) -> bool:
             return contains_flatt_match(rest(input_list))
 
 def contains_flatt_match_or(input_list : List) -> bool:
-    breakpoint() # exercise 135
+    # breakpoint() # exercise 135
     match input_list:
         case []:
             return False
