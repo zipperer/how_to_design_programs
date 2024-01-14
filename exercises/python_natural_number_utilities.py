@@ -1,5 +1,6 @@
 from python_list_utilities import cons, EMPTY_LIST
 from typing import List, Any
+from typing_common import Number
 # An N is one of:
 # - 0
 # - (+ 1 N)
@@ -20,7 +21,7 @@ from typing import List, Any
 # (add1 0) is an N, i.e. 1
 # (add1 (add1 0)) is an N, i.e. 2
 
-def is_zero(n : int) -> bool:
+def is_zero(n : Any) -> bool:
     return n == 0
 
 def add1(n : int) -> int:
@@ -30,9 +31,9 @@ def sub1(n : int) -> int:
     if is_zero(n):
         raise Exception('sub1 expects number greater than 0')
     else:
-        return 1 - n
+        return n - 1
 
-def is_positive(n : int) -> bool:
+def is_positive(n : Number) -> bool:
     return n > 0
 
 # N String -> List-of-strings (i.e. List[str])
