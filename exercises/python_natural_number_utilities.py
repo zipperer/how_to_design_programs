@@ -24,10 +24,10 @@ from typing_common import Number
 def is_zero(n : Any) -> bool:
     return n == 0
 
-def add1(n : int) -> int:
+def add1(n : Number) -> Number:
     return 1 + n
 
-def sub1(n : int) -> int:
+def sub1(n : Number) -> Number:
     if is_zero(n):
         raise Exception('sub1 expects number greater than 0')
     else:
@@ -38,7 +38,7 @@ def is_positive(n : Number) -> bool:
 
 # N String -> List-of-strings (i.e. List[str])
 # creates a list of n occurrences of s
-def their_make_list(n : int, 
+def their_make_list(n : Number, 
                     value : Any) -> List[Any]:
     if is_zero(n):
         return list()
