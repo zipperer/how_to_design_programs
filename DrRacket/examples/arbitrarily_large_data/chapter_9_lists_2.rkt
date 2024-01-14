@@ -125,3 +125,20 @@
     [(string? an-rd) an-rd]
     [(layer? an-rd)
      (string-append (layer-color an-rd) ", " (colors (layer-doll an-rd)))]))
+
+; Exercise 155
+; Design the function inner, which consumes an RD and produces the (color of the) innermost doll.
+; Use DrRacket’s stepper to evaluate (inner rd) for your favorite rd.
+
+; RD -> String
+; return color of innermost doll
+(check-expect (inner "yellow") "yellow")
+(check-expect (inner (make-layer "yellow" "green")) "green")
+(check-expect (inner (make-layer "green" (make-layer "yellow" "red"))) "red")
+(define (inner an-rd)
+  (cond
+    [(string? an-rd) an-rd]
+    [(layer? an-rd)
+     (inner (layer-doll an-rd))]))
+
+; (inner (make-layer "green" (make-layer "yellow" "red")))
