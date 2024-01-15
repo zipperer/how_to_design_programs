@@ -87,3 +87,21 @@
     [(empty? input-list) extra-list]
     [(cons? input-list)
      (my-reverse-extra-list-int (rest input-list) (cons (first input-list) extra-list))]))
+
+
+; List-of-string String -> N
+; determines how often s occurs in los
+(check-expect (count '() "my-string") 0)
+(check-expect (count (cons "my-string" '()) "my-string") 1)
+(check-expect (count (cons "my-string" (cons "your-string" '())) "my-string") 1)
+(check-expect (count (cons "my-string" (cons "your-string" (cons "my-string" '()))) "my-string") 2)
+(check-expect (count (cons "your-string" (cons "my-string" (cons "my-string" (cons "your-string" (cons "my-string" '()))))) "my-string") 3)
+(define (count los s)
+  (cond
+    [(empty? los) 0]
+    [(cons? los)
+     (cond
+       [(string=? s (first los))
+        (+ 1 (count (rest los) s))]
+       [else
+        (count (rest los) s)])]))
