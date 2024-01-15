@@ -24,7 +24,7 @@ def ill_sized(list_of_images, # List[Image]
         case []:
             return False
         case [first_image, *rest_of_images]:
-            if (not (image_is_square_with_side_length first_image side_length)):
+            if (not (image_is_square_with_side_length(first_image, side_length))):
                 return first_image
             else:
                 return ill_sized(rest_of_images, side_length)
