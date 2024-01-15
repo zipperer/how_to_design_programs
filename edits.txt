@@ -135,4 +135,11 @@ or
 Again, the answer in this case must be #true because the list contains "Flatt".
 ========
 ========
+https://htdp.org/2023-8-14/Book/part_two.html#%28part._sec~3alists-programming%29
+
+After all, the above two definitions describe all list of numbers;
+-> ?
+After all, the above two definitions describe all lists of numbers;
+
+Not sure what is intended here.
 ========
