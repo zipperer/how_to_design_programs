@@ -10,13 +10,15 @@
 ; Every time the “player” hits the space bar, the program adds a shot to the bottom of the canvas.
 ; These shots rise vertically at the rate of one pixel per tick.
 
-(define HEIGHT 80) ; distances in terms of pixels 
-(define WIDTH 100)
-(define XSHOTS (/ WIDTH 2))
+(define HEIGHT 220) ; distances in terms of pixels ; 80 -> 220 for exercise 157
+(define WIDTH 30) ; 100 -> 30 for exercise 157
+(define XSHOTS (/ WIDTH 3)) ; (/ WIDTH 2) -> (/ WIDTH 3) for exercise 157
  
 ; graphical constants 
-(define BACKGROUND (empty-scene WIDTH HEIGHT))
-(define SHOT (triangle 3 "solid" "red"))
+(define BACKGROUND (empty-scene WIDTH HEIGHT "green")) ; (empty-scene WIDTH HEIGHT) -> (empty-scene WIDTH HEIGHT "green") for exercise 157
+(define SHOT (rectangle 6 18 "solid" "black")) ; (triangle 3 "solid" "red") -> (rectangle 3 9 "solid" "red") for exercise 157
+;                                                                           -> (rectangle 6 18 "solid" "red")
+;                                                                           -> (rectangle 6 18 "solid" "black")
 
 ; A List-of-shots is one of: 
 ; – '()
