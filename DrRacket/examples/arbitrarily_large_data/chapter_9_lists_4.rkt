@@ -40,7 +40,7 @@
 ; ShotWorld -> ShotWorld 
 (define (main w0)
   (big-bang w0
-    [on-tick tock]
+    [on-tick tock-alternative]
     [on-key keyh]
     [to-draw to-image]))
  
@@ -53,6 +53,28 @@
   (cond
     [(empty? w) '()]
     [else (cons (sub1 (first w)) (tock (rest w)))]))
+
+; ShotWorld -> ShotWorld 
+; moves each shot up by one pixel
+(check-expect (tock-alternative '()) '())
+(check-expect (tock-alternative (cons 9 '())) (cons 8 '()))
+(check-expect (tock-alternative (cons 10 (cons 9 '()))) (cons 9 (cons 8 '())))
+(check-expect (tock-alternative (cons 0 '())) '())
+(define (tock-alternative w)
+  (cond
+    [(empty? w) '()]
+    [else
+     (if (updated-y-position-is-on-screen? w)
+         (cons (sub1 (first w)) (tock-alternative (rest w)))
+         (tock-alternative (rest w)))]))
+
+(define (updated-y-position-is-on-screen? w)
+  (>= (sub1 (first w)) 0))
+
+;(define (add-updated-first-element-to-world-state-unless-element-is-off-screen w)
+  
+
+
  
 ; ShotWorld KeyEvent -> ShotWorld 
 ; adds a shot to the world if the space bar is hit
@@ -81,3 +103,11 @@
 ; - starts a world with world state and clock ticks and key press listeners and a render-on-upate procedure
 
 (main '())
+
+; Exercise 158
+; If you run main, press the space bar (fire a shot), and wait for a goodly amount of time, the shot disappears from the canvas.
+; When you shut down the world canvas, however, the result is a world that still contains this invisible shot.
+
+; Design an alternative tock function that doesn’t just move shots one pixel per clock tick but also eliminates those whose
+; coordinates place them above the canvas.
+; Hint: You may wish to consider the design of an auxiliary function for the recursive cond clause. 
