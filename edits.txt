@@ -143,3 +143,23 @@ After all, the above two definitions describe all lists of numbers;
 
 Not sure what is intended here.
 ========
+========
+adds the image of a shot for each  y on w
+->
+adds the image of a shot for each y on w
+
+remove extra space
+========
+========
+; adds each shot y on w at (XSHOTS,y} to BACKGROUND
+->
+; adds each shot y on w at (XSHOTS,y) to BACKGROUND
+
+I don't recognize the `}` as a syntax element related to coordinates
+and it is inconsistent with earlier section:
+```
+; adds the image of a shot for each y on w 
+; at (MID,y) to the background image
+```
+========
+=======
