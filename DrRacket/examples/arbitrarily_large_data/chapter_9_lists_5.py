@@ -10,6 +10,8 @@ def member(element : Any,
             return True
         case [first_item_in_list, *rest_items_in_list]:
             return member(element, rest_items_in_list)
+        case _: # I added this for mypy. Without it: error: Missing return statement  [return]
+            raise Exception('should not reach this case')
 
 def length(input_list : List[Any]) -> int:
     match input_list:
@@ -17,6 +19,8 @@ def length(input_list : List[Any]) -> int:
             return 0
         case [first_item_in_list, *rest_items_in_list]:
             return 1 + length(rest_items_in_list)
+        case _: # I added this for mypy. Without it: error: Missing return statement  [return]
+            raise Exception('should not reach this case')
 
 def remove(element : Any,
            input_list : List[Any]
@@ -28,6 +32,8 @@ def remove(element : Any,
             return rest_items_in_list
         case [first_item_in_list, *rest_items_in_list]:
             return [first_item_in_list] + remove(element, rest_items_in_list)
+        case _: # I added this for mypy. Without it: error: Missing return statement  [return]
+            raise Exception('should not reach this case')
 
 def remove_all(element : Any,
                input_list : List[Any]
@@ -39,6 +45,8 @@ def remove_all(element : Any,
             return remove_all(element, rest_items_in_list)
         case [first_item_in_list, *rest_items_in_list]:
             return [first_item_in_list] + remove_all(element, rest_items_in_list)
+        case _: # I added this for mypy. Without it: error: Missing return statement  [return]
+            raise Exception('should not reach this case')
 
 def my_reverse(input_list : List[Any]) -> List[Any]:
     match input_list:
@@ -46,6 +54,8 @@ def my_reverse(input_list : List[Any]) -> List[Any]:
             return []
         case [first_item_in_list, *rest_items_in_list]:
             return my_reverse(rest_items_in_list) + [first_item_in_list]
+        case _: # I added this for mypy. Without it: error: Missing return statement  [return]
+            raise Exception('should not reach this case')
 
 import pytest
 
