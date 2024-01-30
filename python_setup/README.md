@@ -14,3 +14,5 @@ how_to_design_programs/exercises $ docker exec -it python3-pytest-mypy-container
 /exercises $ python3 -m mypy --verbose FILENAME.py   # -v abbreviates --verbose
 /exercises $ python3 -m pytest ./*.py
 ```
+
+See ../shell-interactions/...in-container...
