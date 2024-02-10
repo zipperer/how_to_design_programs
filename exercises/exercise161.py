@@ -2,7 +2,7 @@ from typing import List
 
 def wage (h : int) -> int:
     '''computes the wage for h hours of work'''
-    return 12 * h
+    return 14 * h
 
 # wage_star b/c racket version uses wage*
 def wage_star (number_of_hours_each_employee_worked : List[int]) -> List[int]:
@@ -21,7 +21,7 @@ def wage_star (number_of_hours_each_employee_worked : List[int]) -> List[int]:
 
 def test_wage_star():
     assert wage_star([]) == []
-    assert wage_star([1, 2, 3]) == [12, 24, 36]
-    assert wage_star([4, 3, 5]) == [48, 36, 60]
-    assert wage_star([28]) == [336]
-    assert wage_star([4, 2]) == [48, 24]
+    assert wage_star([1, 2, 3]) == [14, 28, 42]
+    assert wage_star([4, 3, 5]) == [56, 42, 70]
+    assert wage_star([28]) == [392]
+    assert wage_star([4, 2]) == [56, 28]
