@@ -7,6 +7,8 @@
 (define (wage h)
   (* WAGE-PER-HOUR h))
 
+(define MAX-HOURS-WORKED-PER-WEEK-FOR-A-GIVEN-EMPLOYEE 100)
+
 ; List-of-numbers -> List-of-numbers
 ; computes wages for each employeee given list of hours each employee worked
 (check-expect (wage* (list 1 3 4)) (list (* 1 WAGE-PER-HOUR)
@@ -15,12 +17,30 @@
 (check-expect (wage* (list 10 8 7)) (list (* 10 WAGE-PER-HOUR)
                                           (* 8 WAGE-PER-HOUR)
                                           (* 7 WAGE-PER-HOUR)))
+; exercise 162
+(check-error (wage* (list 101))
+             (string-append "number of hours worked by single employee (101) exceeds maximum number of hours permitted ("
+                            (number->string MAX-HOURS-WORKED-PER-WEEK-FOR-A-GIVEN-EMPLOYEE)
+                            ")"))
+(check-error (wage* (list 2 4 101 6))
+             (string-append "number of hours worked by single employee (101) exceeds maximum number of hours permitted ("
+                            (number->string MAX-HOURS-WORKED-PER-WEEK-FOR-A-GIVEN-EMPLOYEE)
+                            ")"))
 (define (wage* list-of-hours-each-employee-worked)
   (cond
     [(empty? list-of-hours-each-employee-worked) (list)]
     [(cons? list-of-hours-each-employee-worked)
-     (cons (wage (first list-of-hours-each-employee-worked))
-           (wage* (rest list-of-hours-each-employee-worked)))]))
+     (cond
+       [(<= (first list-of-hours-each-employee-worked) MAX-HOURS-WORKED-PER-WEEK-FOR-A-GIVEN-EMPLOYEE)
+        (cons (wage (first list-of-hours-each-employee-worked))
+              (wage* (rest list-of-hours-each-employee-worked)))]
+       ; exercise 162
+       [else
+        (error (string-append "number of hours worked by single employee ("
+                                   (number->string (first list-of-hours-each-employee-worked))
+                                   ") exceeds maximum number of hours permitted ("
+                                   (number->string MAX-HOURS-WORKED-PER-WEEK-FOR-A-GIVEN-EMPLOYEE)
+                                   ")"))])]))
 
 ; Exercise 161.
 ; Translate the examples into tests and make sure they all succeed.
@@ -36,3 +56,9 @@
 ; - replace occurrence of 14 in wage by WAGE-PER-HOUR
 ; - factor 14 from expected-value in each check expect and replace the 14 with WAGE-PER-HOUR
 (define WAGE-PER-HOUR 14)
+
+; Exercise 162.
+; No employee could possibly work more than 100 hours per week.
+; To protect the company against fraud, the function should check that no item of the input list of wage* exceeds 100.
+; If one of them does, the function should immediately signal an error.
+; How do we have to change the function in figure 64 if we want to perform this basic reality check? 
