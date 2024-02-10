@@ -77,3 +77,30 @@ def test_convertFC():
 
 # formulate functional examples as tests and run them
 # see body of test_convertFC
+
+def convertFC_side_effect_append(list_of_fahrenheit_temperatures: List[Number]) -> List[Number]:
+    '''
+    I intend same input-output behavior as convertFC
+    '''
+    list_of_celsius_temperatures : List[Number] = list()
+    for fahrenheit_temperature in list_of_fahrenheit_temperatures:
+        list_of_celsius_temperatures.append(fahrenheit_to_celsius(fahrenheit_temperature))
+    return list_of_celsius_temperatures
+
+def test_convertFC_side_effect_append():
+    assert convertFC_side_effect_append([]) == []
+    assert convertFC_side_effect_append([32]) == [0.0]
+    assert convertFC_side_effect_append([212]) == [100.0]
+    assert convertFC_side_effect_append([32, 212]) == [0.0, 100.0]
+
+def convertFC_map(list_of_fahrenheit_temperatures: List[Number]) -> List[Number]:
+    '''
+    I intend same input-output behavior as convertFC
+    '''
+    return list(map(fahrenheit_to_celsius, list_of_fahrenheit_temperatures))
+
+def test_convertFC_map():
+    assert convertFC_map([]) == []
+    assert convertFC_map([32]) == [0.0]
+    assert convertFC_map([212]) == [100.0]
+    assert convertFC_map([32, 212]) == [0.0, 100.0]
