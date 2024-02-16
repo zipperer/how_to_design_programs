@@ -163,3 +163,30 @@ and it is inconsistent with earlier section:
 ```
 ========
 =======
+https://htdp.org/2023-8-14/Book/part_two.html
+
+(define (wage*.v2 an-low)
+  (cond
+    [(empty? an-low) ...]
+    [(cons? an-low)
+     (... (first an-low) ...
+      ... ... (work-employee (first an-low)) ...
+      ... ... (work-rate (first an-low)) ...
+      ... ... (work-hours (first an-low)) ...
+      (wage*.v2 (rest an-low)) ...)]))
+
+-> 
+
+(define (wage*.v2 an-low)
+  (cond
+    [(empty? an-low) ...]
+    [(cons? an-low)
+     (... (first an-low) ...
+      ... (work-employee (first an-low)) ...
+      ... (work-rate (first an-low)) ...
+      ... (work-hours (first an-low)) ...
+      (wage*.v2 (rest an-low)) ...)]))
+
+remove extra `...` at the beginning of three lines
+========
+=======
