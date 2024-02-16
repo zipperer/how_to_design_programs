@@ -1,1 +1,0 @@
-DrRacket/examples/arbitrarily_large_data/chapter_10_functions_that_produce_lists_0.rkt
