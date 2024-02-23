@@ -190,3 +190,12 @@ https://htdp.org/2023-8-14/Book/part_two.html
 remove extra `...` at the beginning of three lines
 ========
 =======
+https://htdp.org/2023-8-14/Book/part_two.html
+
+We name the functions words-on-line
+->
+We name the function words-on-line
+
+remove 's' at end of 'function' since we name only one function
+========
+=======
